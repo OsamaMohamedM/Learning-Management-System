@@ -1,6 +1,6 @@
 
 
-# Project Setup and Architecture // 4/12/2024s
+# Project Setup and Architecture // 4/12/2024
 
 This project is built using **Spring Boot 3.4.0** with **Java 23** and **Maven**. Below is a step-by-step guide on how the project was structured and the configuration applied.
 
