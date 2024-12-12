@@ -9,13 +9,13 @@ public abstract class User   {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
+    private String Password;
     private String name;
     private String email;
     private String gender;
 
-    @Temporal(TemporalType.DATE)
-    private Date birthDate;
+    Date birthDate;
+
 
     public User(int id, String name, String email, String gender, Date birthDate) {
         this.id = id;
