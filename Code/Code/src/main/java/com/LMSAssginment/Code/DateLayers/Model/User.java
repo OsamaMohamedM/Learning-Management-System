@@ -13,6 +13,7 @@ public abstract class User   {
     private String name;
     private String email;
     private String gender;
+    private String type;
 
     Date birthDate;
 
@@ -48,6 +49,12 @@ public abstract class User   {
         return email;
     }
 
+      public String getType() {
+        return Type;
+    }
+      public String setType(String Type) {
+         this.Type  = Type;
+    }
     public void setEmail(String email) {
         this.email = email;
     }
