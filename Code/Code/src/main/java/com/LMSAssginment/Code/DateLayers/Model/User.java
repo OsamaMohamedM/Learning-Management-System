@@ -13,17 +13,18 @@ public abstract class User   {
     private String name;
     private String email;
     private String gender;
-    private String type;
-
+    private String userType;
     Date birthDate;
 
 
-    public User(int id, String name, String email, String gender, Date birthDate) {
+    public User(String name, String password, String email, String gender, Date birthDate, String userType) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.gender = gender;
         this.birthDate = birthDate;
+        this.Password = password;
+        this.userType = userType;
     }
 
     public User() {
@@ -49,12 +50,6 @@ public abstract class User   {
         return email;
     }
 
-      public String getType() {
-        return Type;
-    }
-      public String setType(String Type) {
-         this.Type  = Type;
-    }
     public void setEmail(String email) {
         this.email = email;
     }
@@ -75,5 +70,21 @@ public abstract class User   {
         this.birthDate = birthDate;
     }
 
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public String getPassword() {
+        return Password;
+    }
+
+    public void setPassword(String password) {
+        Password = password;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
 
 }

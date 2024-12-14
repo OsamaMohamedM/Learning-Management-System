@@ -9,12 +9,14 @@ import java.util.List;
 public class Student extends User {
     private double gpa;
 
-    public Student(int id, String name, String email, String gender, Date birthDate, double gpa) {
-        super(id, name, email, gender, birthDate);
-        this.gpa = gpa;
-    }
+
 
     public Student() {
+    }
+
+    public Student(String name, String password, String email, String gender, Date birthDate, String userType, double gpa) {
+        super(name, password, email, gender, birthDate, userType);
+        this.gpa = gpa;
     }
 
     public double getGpa() {

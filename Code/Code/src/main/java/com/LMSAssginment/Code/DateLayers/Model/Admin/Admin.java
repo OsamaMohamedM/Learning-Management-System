@@ -8,11 +8,13 @@ import java.util.Date;
 public class Admin extends User {
 
 
- public Admin() {
-       
+    public Admin() {
+
     }
 
-    public Admin(int id, String name, String email, String gender, Date birthDate) {
-        super(id, name, email, gender, birthDate); 
+    public Admin(String name, String password, String email, String gender, Date birthDate, String userType) {
+        super(name, password, email, gender, birthDate, userType);
     }
+
+
 }
