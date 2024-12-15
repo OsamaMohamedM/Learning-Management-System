@@ -9,8 +9,8 @@ public class ShortAnswerQuestion extends Question {
     }
 
     // Constructors, getters, and setters
-    public ShortAnswerQuestion(int id, String text, String answer) {
-        super(id, text, null); // Null here as it will be set by the parent (Assessment)
+    public ShortAnswerQuestion( String text, String answer) {
+        super( text, null);
         this.answer = answer;
     }
 

@@ -10,7 +10,7 @@ public class TrueAndFalseQuestion extends Question {
 
     // Constructors, getters, and setters
     public TrueAndFalseQuestion(int id, String text, boolean answer) {
-        super(id, text, null); // Null here as it will be set by the parent (Assessment)
+        super(text, null);
         this.answer = answer;
     }
 

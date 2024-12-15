@@ -2,15 +2,18 @@ package com.LMSAssginment.Code.DateLayers.Model.Course;
 
 import com.LMSAssginment.Code.DateLayers.Model.Questions.Question;
 import jakarta.persistence.*;
-
 import java.util.Date;
 import java.util.List;
 
 @Entity
 public class Assessment {
     @Id
-    private int id;
-    @Column()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
+
+
+    int totalNumberOfQuestions;
+
     private int totalGrades;
     private Double duration;
     private Date startDate;
@@ -20,24 +23,34 @@ public class Assessment {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @OneToMany(mappedBy = "assessment")
-    private List<Question> questionList;
+    @ManyToMany
+    @JoinTable(
+            name = "assessment_question",
+            joinColumns = @JoinColumn(name = "assessment_id"),
+            inverseJoinColumns = @JoinColumn(name = "question_id")
+    )
+    private List<Question> questions;
 
-    public Assessment(int id, int totalGrades, Double duration, Date startDate, String type, Course course, List<Question> questionList) {
-        this.id = id;
+    public Assessment() {}
+
+    public Assessment( int totalGrades, Double duration, Date startDate, String type, Course course, List<Question> questions , int totalNumberOfQuestions) {
         this.totalGrades = totalGrades;
         this.duration = duration;
         this.startDate = startDate;
         this.type = type;
         this.course = course;
-        this.questionList = questionList;
+        this.questions = questions;
+        this.totalNumberOfQuestions = totalNumberOfQuestions;
     }
 
-    public Assessment() {
+    public int getTotalNumberOfQuestions() {
+        return totalNumberOfQuestions;
     }
 
-
-    public int getId() {
+    public void setTotalNumberOfQuestions(int totalNumberOfQuestions) {
+        this.totalNumberOfQuestions = totalNumberOfQuestions;
+    }
+ public int getId() {
         return id;
     }
 
@@ -85,11 +98,13 @@ public class Assessment {
         this.course = course;
     }
 
-    public List<Question> getQuestionList() {
-        return questionList;
+    public List<Question> getQuestions() {
+        return questions;
     }
 
-    public void setQuestionList(List<Question> questionList) {
-        this.questionList = questionList;
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
+
+
 }

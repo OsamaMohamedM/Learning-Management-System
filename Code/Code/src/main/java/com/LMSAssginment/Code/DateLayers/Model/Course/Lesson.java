@@ -61,6 +61,16 @@ public class Lesson implements Serializable {
     public void setContentFile(byte[] contentFile) {
         this.contentFile = contentFile;
     }
+    public int getCourseId() {
+        return this.course.getId();
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 }
 
 
