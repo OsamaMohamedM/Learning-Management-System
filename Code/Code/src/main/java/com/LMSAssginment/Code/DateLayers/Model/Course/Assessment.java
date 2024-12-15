@@ -9,6 +9,7 @@ import java.util.List;
 public class Assessment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
     private int totalGrades;
     private Double duration;
     private Date startDate;
