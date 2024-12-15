@@ -1,8 +1,11 @@
 package com.LMSAssginment.Code.DateLayers.Model.Course;
 
+import jakarta.persistence.Embeddable;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Embeddable
 public class LessonAttendanceId implements Serializable {
 
     private Long courseId;

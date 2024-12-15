@@ -13,8 +13,8 @@ public class McqQuestion extends Question {
     }
 
 
-    public McqQuestion(int id, String text, String optionA, String optionB, String optionC, String optionD, String answer) {
-        super(id, text, null);
+    public McqQuestion( String text, String optionA, String optionB, String optionC, String optionD, String answer) {
+        super(text, null);
         this.optionA = optionA;
         this.optionB = optionB;
         this.optionC = optionC;

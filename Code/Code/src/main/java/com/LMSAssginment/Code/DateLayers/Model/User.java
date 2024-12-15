@@ -50,10 +50,11 @@ public abstract class User   {
     }
 
       public String getType() {
-        return Type;
+        return type;
     }
-      public String setType(String Type) {
-         this.Type  = Type;
+      public void setType(String Type) {
+
+        this.type  = Type;
     }
     public void setEmail(String email) {
         this.email = email;

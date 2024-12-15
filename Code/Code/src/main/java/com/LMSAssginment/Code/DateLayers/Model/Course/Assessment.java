@@ -9,6 +9,18 @@ import java.util.List;
 public class Assessment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
+
+    int totalNumberOfQuestions;
+
+    public int getTotalNumberOfQuestions() {
+        return totalNumberOfQuestions;
+    }
+
+    public void setTotalNumberOfQuestions(int totalNumberOfQuestions) {
+        this.totalNumberOfQuestions = totalNumberOfQuestions;
+    }
+
     private int totalGrades;
     private Double duration;
     private Date startDate;
@@ -92,8 +104,5 @@ public class Assessment {
         this.questions = questions;
     }
 
-    public  int getNumberOfQuestions()
-    {
-       return  questions.size();
-    }
+
 }

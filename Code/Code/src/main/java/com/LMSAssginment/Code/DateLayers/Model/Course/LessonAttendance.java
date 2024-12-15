@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Embeddable
-
 
 @Entity
 public class LessonAttendance {
