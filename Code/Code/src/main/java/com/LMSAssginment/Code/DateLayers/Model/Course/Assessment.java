@@ -29,7 +29,6 @@ public class Assessment {
     public Assessment() {}
 
     public Assessment( int totalGrades, Double duration, Date startDate, String type, Course course, List<Question> questions) {
-        this.id = id;
         this.totalGrades = totalGrades;
         this.duration = duration;
         this.startDate = startDate;
@@ -37,7 +36,13 @@ public class Assessment {
         this.course = course;
         this.questions = questions;
     }
+ public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getTotalGrades() {
         return totalGrades;
