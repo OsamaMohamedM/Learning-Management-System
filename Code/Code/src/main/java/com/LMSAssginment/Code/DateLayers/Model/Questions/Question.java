@@ -1,10 +1,11 @@
 package com.LMSAssginment.Code.DateLayers.Model.Questions;
 
-
 import com.LMSAssginment.Code.DateLayers.Model.Course.Assessment;
 import com.LMSAssginment.Code.DateLayers.Model.Course.Course;
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
@@ -12,9 +13,7 @@ import jakarta.persistence.*;
         @JsonSubTypes.Type(value = ShortAnswerQuestion.class, name = "short-answer"),
         @JsonSubTypes.Type(value = TrueAndFalseQuestion.class, name = "true-false"),
         @JsonSubTypes.Type(value = McqQuestion.class, name = "mcq"),
-
 })
-
 public abstract class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,13 +24,10 @@ public abstract class Question {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @ManyToOne
-    @JoinColumn(name = "assessment_id")
-    private Assessment assessment;
-
+    @ManyToMany(mappedBy = "questions")
+    private List<Assessment> assessments;
 
     public Question() {
-
     }
 
     public Question(int id, String text, Course course) {
@@ -40,7 +36,6 @@ public abstract class Question {
         this.course = course;
     }
 
-    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -63,6 +58,14 @@ public abstract class Question {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public List<Assessment> getAssessments() {
+        return assessments;
+    }
+
+    public void setAssessments(List<Assessment> assessments) {
+        this.assessments = assessments;
     }
 
     public abstract void display();
