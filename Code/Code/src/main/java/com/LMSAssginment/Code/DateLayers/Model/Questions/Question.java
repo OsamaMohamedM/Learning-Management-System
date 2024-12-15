@@ -30,7 +30,7 @@ public abstract class Question {
     public Question() {
     }
 
-    public Question(int id, String text, Course course) {
+    public Question( String text, Course course) {
         this.id = id;
         this.text = text;
         this.course = course;
