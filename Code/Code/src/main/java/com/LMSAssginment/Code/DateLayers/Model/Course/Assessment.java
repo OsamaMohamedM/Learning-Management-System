@@ -11,15 +11,8 @@ public class Assessment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
+
     int totalNumberOfQuestions;
-
-    public int getTotalNumberOfQuestions() {
-        return totalNumberOfQuestions;
-    }
-
-    public void setTotalNumberOfQuestions(int totalNumberOfQuestions) {
-        this.totalNumberOfQuestions = totalNumberOfQuestions;
-    }
 
     private int totalGrades;
     private Double duration;
@@ -47,6 +40,14 @@ public class Assessment {
         this.type = type;
         this.course = course;
         this.questions = questions;
+    }
+
+    public int getTotalNumberOfQuestions() {
+        return totalNumberOfQuestions;
+    }
+
+    public void setTotalNumberOfQuestions(int totalNumberOfQuestions) {
+        this.totalNumberOfQuestions = totalNumberOfQuestions;
     }
  public int getId() {
         return id;
