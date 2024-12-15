@@ -17,9 +17,10 @@ public class Instructor extends User {
     public Instructor() {
     }
 
-    public Instructor(int id, String name, String email, String gender, Date birthDate) {
-        super(id, name, email, gender, birthDate);
+    public Instructor(String name, String password, String email, String gender, Date birthDate, String userType) {
+        super(name, password, email, gender, birthDate, userType);
     }
+
 
     public List<Course> getCourses() {
         return courses;
