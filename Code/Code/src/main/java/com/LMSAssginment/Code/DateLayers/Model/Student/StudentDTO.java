@@ -1,35 +1,31 @@
-package com.LMSAssginment.Code.DateLayers.Model;
+package com.LMSAssginment.Code.DateLayers.Model.Student;
 
-import jakarta.persistence.*;
 import java.util.Date;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class User   {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class StudentDTO {
+
     private int id;
-    private String Password;
     private String name;
     private String email;
     private String gender;
-    private String userType;
-    Date birthDate;
+    private Date birthDate;
+    private double gpa;
 
-
-    public User(String name, String password, String email, String gender, Date birthDate, String userType) {
+    // Constructor
+    public StudentDTO(int id, String name, String email, String gender, Date birthDate, double gpa) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.gender = gender;
         this.birthDate = birthDate;
-        this.Password = password;
-        this.userType = userType;
+        this.gpa = gpa;
     }
 
-    public User() {
+    // Default Constructor
+    public StudentDTO() {
     }
 
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -70,21 +66,11 @@ public abstract class User   {
         this.birthDate = birthDate;
     }
 
-
-    public String getUserType() {
-        return userType;
+    public double getGpa() {
+        return gpa;
     }
 
-    public String getPassword() {
-        return Password;
+    public void setGpa(double gpa) {
+        this.gpa = gpa;
     }
-
-    public void setPassword(String password) {
-        Password = password;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
-
 }
