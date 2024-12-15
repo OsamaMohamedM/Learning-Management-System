@@ -33,13 +33,14 @@ public class Assessment {
 
     public Assessment() {}
 
-    public Assessment( int totalGrades, Double duration, Date startDate, String type, Course course, List<Question> questions) {
+    public Assessment( int totalGrades, Double duration, Date startDate, String type, Course course, List<Question> questions , int totalNumberOfQuestions) {
         this.totalGrades = totalGrades;
         this.duration = duration;
         this.startDate = startDate;
         this.type = type;
         this.course = course;
         this.questions = questions;
+        this.totalNumberOfQuestions = totalNumberOfQuestions;
     }
 
     public int getTotalNumberOfQuestions() {
