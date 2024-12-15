@@ -31,7 +31,7 @@ public abstract class Question {
     }
 
     public Question( String text, Course course) {
-        this.id = id;
+       
         this.text = text;
         this.course = course;
     }
