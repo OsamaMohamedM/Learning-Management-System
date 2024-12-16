@@ -1,15 +1,24 @@
 package com.LMSAssginment.Code.DateLayers.Repos;
 
-import com.LMSAssginment.Code.DateLayers.Model.Questions.McqQuestion;
 import com.LMSAssginment.Code.DateLayers.Model.Questions.Question;
+import org.hibernate.Session;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+
+
+
 public interface QuestionsRepo extends JpaRepository<Question,Integer>{
-    @Query(value = "SELECT * FROM question WHERE question_type :questionType ORDER BY RAND() LIMIT :num", nativeQuery = true)
+
+
+
+
+
+
+    @Query(value = "SELECT a FROM Question a WHERE a.questionType=:questionType")
     List<Question> getRandomQuestions(@Param("questionType") String questionType, @Param("num") int num);
 
 //    @Query(value = "SELECT * FROM Orders WHERE Amount BETWEEN :startAmt AND :endAmt" , nativeQuery=true)

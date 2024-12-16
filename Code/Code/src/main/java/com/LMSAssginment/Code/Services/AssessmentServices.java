@@ -8,7 +8,10 @@ import com.LMSAssginment.Code.DateLayers.Repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.management.Query;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -43,10 +46,17 @@ public class AssessmentServices {
     }
 
 
-    public List<Question> getRandomQuestions(String questionType, int num){
-        return questionsRepo.getRandomQuestions(questionType, num);
+    public List<Question> getRandomQuestions(String questionType, int num) {
+        // Retrieve random questions from the repository
+        List<Question> tmp = questionsRepo.getRandomQuestions(questionType, num);
 
+        // Shuffle the list to randomize the order
+        Collections.shuffle(tmp);
+
+        // Return the first 'num' elements from the shuffled list
+        return tmp.subList(0, Math.min(num, tmp.size()));
     }
+
 
 
 
