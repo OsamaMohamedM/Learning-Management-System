@@ -18,8 +18,8 @@ public class ShortAnswerQuestion extends Question {
     }
 
     // Constructors, getters, and setters
-    public ShortAnswerQuestion(Course course, String text, String answer) {
-        super( text, course);
+    public ShortAnswerQuestion(Course course, String text, String answer, String quetionType) {
+        super(text, course, quetionType);
         this.answer = answer;
     }
 

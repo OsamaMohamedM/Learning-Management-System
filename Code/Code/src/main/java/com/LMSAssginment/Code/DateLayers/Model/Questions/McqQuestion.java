@@ -25,8 +25,8 @@ public class McqQuestion extends Question {
     }
 
 
-    public McqQuestion(Course course, String text, String optionA, String optionB, String optionC, String optionD, String answer) {
-        super(text, course);
+    public McqQuestion(Course course, String text, String optionA, String optionB, String optionC, String optionD, String answer, String quetionType) {
+        super(text, course, quetionType);
         this.optionA = optionA;
         this.optionB = optionB;
         this.optionC = optionC;

@@ -36,7 +36,8 @@ public class QuestionController {
                     (String) ob.get("optionB"),
                     (String) ob.get("optionC"),
                     (String) ob.get("optionD"),
-                    (String) ob.get("answer"));
+                    (String) ob.get("answer"),
+                    "mcq");
             questionService.addMcqQuestions(mcqQuestion);
         }
         return  course;
@@ -48,7 +49,8 @@ public class QuestionController {
         for (Map<String, Object> ob : shortAnswerQuestions){
            ShortAnswerQuestion shortAnswerQuestion = new ShortAnswerQuestion(course,
                    (String) ob.get("text"),
-                    (String) ob.get("answer"));
+                    (String) ob.get("answer"),
+                   "sa");
             questionService.addShortAnswerQuestion(shortAnswerQuestion);
         }
         return  course;
@@ -60,7 +62,8 @@ public class QuestionController {
         for (Map<String, Object> ob : trueAndFalseQuestions){
             TrueAndFalseQuestion trueAndFalseQuestion = new TrueAndFalseQuestion(course,
                     (String) ob.get("text"),
-                    (Boolean) ob.get("answer"));
+                    (Boolean) ob.get("answer"),
+                    "tf");
             questionService.addTrueAndFalseQuestion(trueAndFalseQuestion);
         }
         return  course;

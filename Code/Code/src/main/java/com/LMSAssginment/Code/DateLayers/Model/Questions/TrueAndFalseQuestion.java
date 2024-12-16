@@ -18,8 +18,8 @@ public class TrueAndFalseQuestion extends Question {
     }
 
     // Constructors, getters, and setters
-    public TrueAndFalseQuestion(Course course, String text, boolean answer) {
-        super(text, course);
+    public TrueAndFalseQuestion(Course course, String text, boolean answer, String questionType) {
+        super(text, course, questionType);
         this.answer = answer;
     }
 

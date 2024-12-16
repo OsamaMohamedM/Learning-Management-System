@@ -28,13 +28,17 @@ public abstract class Question {
     @ManyToMany(mappedBy = "questions")
     private List<Assessment> assessments;
 
+
+    private String questionType;
+
     public Question() {
     }
 
-    public Question( String text, Course course) {
+    public Question( String text, Course course, String questionType) {
        
         this.text = text;
         this.course = course;
+        this.questionType = questionType;
     }
 
     public int getId() {
