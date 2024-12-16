@@ -8,31 +8,31 @@ import java.util.Objects;
 @Embeddable
 public class LessonAttendanceId implements Serializable {
 
-    private Long courseId;
-    private Long lessonId;
-    private Long studentId;
+    private int courseId;
+    private int lessonId;
+    private int studentId;
 
-    public Long getCourseId() {
+    public int getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(Long courseId) {
+    public void setCourseId(int courseId) {
         this.courseId = courseId;
     }
 
-    public Long getLessonId() {
+    public int getLessonId() {
         return lessonId;
     }
 
-    public void setLessonId(Long lessonId) {
+    public void setLessonId(int lessonId) {
         this.lessonId = lessonId;
     }
 
-    public Long getStudentId() {
+    public int getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(Long studentId) {
+    public void setStudentId(int studentId) {
         this.studentId = studentId;
     }
 

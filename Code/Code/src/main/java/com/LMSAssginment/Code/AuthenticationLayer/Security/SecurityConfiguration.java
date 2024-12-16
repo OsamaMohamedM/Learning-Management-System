@@ -31,6 +31,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/signup").permitAll()
+                        .requestMatchers("/performanceTracking/**").permitAll()
                         .requestMatchers("/createUser/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
