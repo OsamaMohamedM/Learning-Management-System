@@ -36,12 +36,17 @@ This project is built using **Spring Boot 3.4.0** with **Java 23** and **Maven**
 ## Updates 
 
  - **`business layer`:
-     - **Controller:** 
+     - **Controller:**
+          attendController
+          ProfileManagementController
 
-     - **Service:** 
+     - **Service:**
+          attendService
+          profileManagment
 
    - **`data layer`:
      - **Repository:**.
+          added function findByLessonId to LessonAttendanceRepository
 
 
      - **Models:** 
