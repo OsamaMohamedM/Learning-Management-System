@@ -26,7 +26,7 @@ public class EnrollService {
     private UserRepo studentRepo;
     public void enroll(int courseId, int studentId) {
         try{
-            if (studentId != 0) {;
+            if (studentId != 0) {
                 if (studentRepo.findById(studentId) != null) {
                     List<Student> students = studentRepo.findAllStudents();
                     Student student = new Student();

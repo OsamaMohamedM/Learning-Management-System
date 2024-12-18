@@ -1,7 +1,6 @@
 package com.LMSAssginment.Code.BusinessLayers.Controllers;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,14 +11,11 @@ import com.LMSAssginment.Code.BusinessLayers.Services.EnrollService;
 
 @RestController
 public class EnrollmentControl {
-
-    @Autowired
     private final EnrollService enrollService;
     EnrollmentControl(EnrollService enrollService) {
         this.enrollService = enrollService;
     }
 
-    // enroll a student into a course ?
     @PostMapping("/enroll/{courseId}/{studentId}")
     public void createCourse(@PathVariable int courseId, @PathVariable int studentId) {
         try{
@@ -30,7 +26,7 @@ public class EnrollmentControl {
         }
 
     }
-    // view all enrolled students ?
+
     @GetMapping("/enroll/view/{courseId}")
     public List<StudentDTO> viewAllCourse(@PathVariable int courseId) {
         try{
@@ -40,7 +36,7 @@ public class EnrollmentControl {
         }
         return null;
     }
-    // drop a student from a course ?
+
     @DeleteMapping("/drop/{courseId}/{studentId}")
     public void dropCourse(@PathVariable int courseId, @PathVariable int studentId) {
         try{
