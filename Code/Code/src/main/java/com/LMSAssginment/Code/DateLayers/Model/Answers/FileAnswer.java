@@ -14,6 +14,15 @@ public class FileAnswer extends Answer {
     @JoinColumn(name = "course_id")
     private Course course;
 
+
+    public FileAnswer() {
+
+    }
+
+    public FileAnswer(File fileAnswer){
+        this.answer = fileAnswer;
+    }
+
     @Override
     public boolean validate() {
         return true;

@@ -1,12 +1,16 @@
 package com.LMSAssginment.Code.DateLayers.Model.Course;
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "AssessmentGrades")
+@NoArgsConstructor
 public class AssessmentGrade {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
 
     @Id
     @Column(name = "student_id", nullable = false)
@@ -24,6 +28,12 @@ public class AssessmentGrade {
     private String feedBack;
 
 
+    public AssessmentGrade(int studentID, int assessmentId, int courseId, int grade){
+        this.studentID = studentID;
+        this.assessmentId = assessmentId;
+        this.courseId = courseId;
+        this.grade = grade;
+    }
 
 
     public int getStudentID() {

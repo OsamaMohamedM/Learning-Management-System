@@ -1,15 +1,22 @@
 package com.LMSAssginment.Code.Controllers;
 
+import com.LMSAssginment.Code.DateLayers.Model.Answers.FileAnswer;
 import com.LMSAssginment.Code.DateLayers.Model.Course.Assessment;
+import com.LMSAssginment.Code.DateLayers.Model.Course.AssessmentGrade;
 import com.LMSAssginment.Code.DateLayers.Model.Questions.McqQuestion;
 import com.LMSAssginment.Code.DateLayers.Model.Questions.Question;
 import com.LMSAssginment.Code.DateLayers.Model.Questions.ShortAnswerQuestion;
 import com.LMSAssginment.Code.DateLayers.Model.Questions.TrueAndFalseQuestion;
+import com.LMSAssginment.Code.DateLayers.Model.Student.StudentAssessmentResponse;
 import com.LMSAssginment.Code.Services.QuestionService;
 import com.LMSAssginment.Code.Services.StudentAssessmentResponseService;
+import org.apache.tomcat.util.file.ConfigurationSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -68,18 +75,49 @@ public class StudentController {
 
     }
 
-    @PostMapping("/displayAssessment/submit")
-    public String submit(@PathVariable int student_id, @PathVariable int assessment_id, @PathVariable int course_id, @RequestBody Map<String, Object> studentAnswers){
-        int count = 1, totalNumberOfGrades = 0;
-        if (assessment.getType().equals("quiz")){
-            String questionNumber = "q" + count;
+    @PostMapping("/displayAssessment/submitQuiz")
+    public String submitQuiz(@PathVariable int student_id, @PathVariable int assessment_id, @PathVariable int course_id, @RequestBody Map<String, Object> studentAnswers){
+        String result;
+        int count = 1, totalNumberOfGrades = 0, correct = 0;
+                /*
+
+        {
+        "q1":...
+        "q2":...
+        }
+
+         */
+        AssessmentGrade assessmentGrade;
             for (String str : questionsAnswer){
-                if (str.equals(studentAnswers.get(questionNumber)))
+                String questionNumber = "q" + count;
+                if (str.equals(studentAnswers.get(questionNumber))){
                     totalNumberOfGrades += (assessment.getTotalGrades() / assessment.getTotalNumberOfQuestions());
+                    correct++;
+                }
                 count++;
             }
-        }
-        else
+            assessmentGrade = new AssessmentGrade(student_id, assessment_id, course_id, totalNumberOfGrades);
+            result = "Your correct questions is: " + correct + ", Your grades is: " + totalNumberOfGrades;
+            studentAssessmentResponceService.saveAssessmentGrade(assessmentGrade);
+
+        return result;
+    }
+
+
+    @GetMapping("/displayAssessment/submitAssignment/{file_name}")
+    public String submitAssignment(@PathVariable int student_id, @PathVariable int assessment_id, @PathVariable int course_id, @PathVariable String file_name){
+        File file = new File(file_name);
+        FileAnswer fileAnswer = new FileAnswer(file);
+        String result;
+        AssessmentGrade assessmentGrade;
+        assessmentGrade = new AssessmentGrade(student_id, assessment_id, course_id, 0);
+        result = "Your Assignment has been uploaded succeffuly";
+        List<FileAnswer> fileAnswers = new ArrayList<>();
+        fileAnswers.add(fileAnswer);
+        StudentAssessmentResponse studentAssessmentResponse = new StudentAssessmentResponse(assessment, student_id, course_id, fileAnswers);
+        studentAssessmentResponceService.saveAssignment(studentAssessmentResponse);
+
+        return result;
     }
 
 }

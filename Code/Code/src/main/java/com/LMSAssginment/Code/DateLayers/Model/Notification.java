@@ -21,6 +21,9 @@ public class Notification {
 
     private String notificationContent;
 
+    @Column(name="is_read")
+    private boolean read = false;
+
 
     public int getId() {
         return id;
@@ -52,5 +55,13 @@ public class Notification {
 
     public void setNotificationContent(String notificationContent) {
         this.notificationContent = notificationContent;
+    }
+
+    public boolean getnotificationStatue() {
+        return read;
+    }
+
+    public void setnotificationStatue(boolean notificationStatue) {
+        this.read = notificationStatue;
     }
 }

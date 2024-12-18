@@ -30,6 +30,13 @@ public class StudentAssessmentResponse {
     public StudentAssessmentResponse() {
     }
 
+    public StudentAssessmentResponse(Assessment assessment, int studentId, int courseId, List<FileAnswer> fileAnswers) {
+        this.assessment = assessment;
+        this.studentId = studentId;
+        this.courseId = courseId;
+        this.studentAnswer = fileAnswers;
+    }
+
     // Getters and Setters
     public Long getId() {
         return id;
