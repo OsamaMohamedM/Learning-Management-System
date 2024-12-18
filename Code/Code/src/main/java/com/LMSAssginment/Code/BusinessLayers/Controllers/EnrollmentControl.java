@@ -19,6 +19,7 @@ public class EnrollmentControl {
         this.enrollService = enrollService;
     }
 
+    // enroll a student into a course ?
     @PostMapping("/enroll/{courseId}/{studentId}")
     public void createCourse(@PathVariable int courseId, @PathVariable int studentId) {
         try{
@@ -29,7 +30,7 @@ public class EnrollmentControl {
         }
 
     }
-
+    // view all enrolled students ?
     @GetMapping("/enroll/view/{courseId}")
     public List<StudentDTO> viewAllCourse(@PathVariable int courseId) {
         try{
@@ -39,7 +40,7 @@ public class EnrollmentControl {
         }
         return null;
     }
-
+    // drop a student from a course ?
     @DeleteMapping("/drop/{courseId}/{studentId}")
     public void dropCourse(@PathVariable int courseId, @PathVariable int studentId) {
         try{

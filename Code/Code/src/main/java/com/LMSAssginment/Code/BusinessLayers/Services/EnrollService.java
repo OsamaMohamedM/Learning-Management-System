@@ -1,6 +1,8 @@
 package  com.LMSAssginment.Code.BusinessLayers.Services;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.LMSAssginment.Code.DateLayers.Model.Course.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.LMSAssginment.Code.DateLayers.Model.Student.Student;
@@ -12,7 +14,9 @@ import com.LMSAssginment.Code.DateLayers.Repos.UserRepo;
 
 @Service
 public class EnrollService {
+    @Autowired
     private final StudentCourseRepo repository;
+    @Autowired
     private final InstructorCourseRepo courseRepository;
     public EnrollService(StudentCourseRepo repository, InstructorCourseRepo courseRepository) {
         this.repository = repository;
@@ -34,7 +38,8 @@ public class EnrollService {
                         }
                     }
                     StudentCourse studentCourse = new StudentCourse();
-                    studentCourse.setCourse(courseRepository.findById(courseId).get());
+                    Course crs=courseRepository.findById(courseId).orElse(null);
+                    studentCourse.setCourse(crs);
                     studentCourse.setStudent(student);
                     studentCourse.setEnrollmentDate(java.time.LocalDateTime.now());
                     repository.save(studentCourse);
