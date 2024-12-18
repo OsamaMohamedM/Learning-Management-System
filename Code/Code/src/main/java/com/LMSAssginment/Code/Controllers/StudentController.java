@@ -104,21 +104,21 @@ public class StudentController {
     }
 
 
-    @PostMapping("/displayAssessment/submitAssignment")
-    public String submitAssignment(@PathVariable int user_id, @PathVariable int assessment_id, @PathVariable int course_id, @RequestParam MultipartFile file){
-        String fileName = file.getOriginalFilename();
-        byte[] fileData = file.getBytes();
-        FileAnswer fileAnswer = new FileAnswer(file_name, fileData);
-        String result;
-        AssessmentGrade assessmentGrade;
-        assessmentGrade = new AssessmentGrade(user_id, assessment_id, course_id, 0);
-        result = "Your Assignment has been uploaded succeffuly";
-        List<FileAnswer> fileAnswers = new ArrayList<>();
-        fileAnswers.add(fileAnswer);
-        StudentAssessmentResponse studentAssessmentResponse = new StudentAssessmentResponse(assessment, user_id, course_id, fileAnswers);
-        studentAssessmentResponceService.saveAssignment(studentAssessmentResponse);
-
-        return "result";
-    }
+//    @PostMapping("/displayAssessment/submitAssignment")
+//    public String submitAssignment(@PathVariable int user_id, @PathVariable int assessment_id, @PathVariable int course_id, @RequestParam MultipartFile file){
+//        String fileName = file.getOriginalFilename();
+//        byte[] fileData = file.getBytes();
+//        FileAnswer fileAnswer = new FileAnswer(file_name, fileData);
+//        String result;
+//        AssessmentGrade assessmentGrade;
+//        assessmentGrade = new AssessmentGrade(user_id, assessment_id, course_id, 0);
+//        result = "Your Assignment has been uploaded succeffuly";
+//        List<FileAnswer> fileAnswers = new ArrayList<>();
+//        fileAnswers.add(fileAnswer);
+//        StudentAssessmentResponse studentAssessmentResponse = new StudentAssessmentResponse(assessment, user_id, course_id, fileAnswers);
+//        studentAssessmentResponceService.saveAssignment(studentAssessmentResponse);
+//
+//        return "result";
+//    }
 
 }

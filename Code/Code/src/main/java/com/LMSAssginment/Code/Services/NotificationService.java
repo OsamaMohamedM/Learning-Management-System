@@ -1,6 +1,7 @@
 package com.LMSAssginment.Code.Services;
 
 import com.LMSAssginment.Code.DateLayers.Model.Course.Course;
+import com.LMSAssginment.Code.DateLayers.Model.Instructor.Instructor;
 import com.LMSAssginment.Code.DateLayers.Model.Notification;
 import com.LMSAssginment.Code.DateLayers.Model.User;
 import com.LMSAssginment.Code.DateLayers.Repos.InstructorCourseRepo;
@@ -10,6 +11,7 @@ import com.LMSAssginment.Code.DateLayers.Repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -36,9 +38,30 @@ public class NotificationService {
 
 
 
+    // specifc
+    public String createNotificationforAlist(Map<String,Object> ob, int courseId) {
+        Course course = courseRepo.findById(courseId)
+                .orElseThrow(() -> new RuntimeException("Course not found"));
+        List<Integer> student_ids=(List<Integer>) ob.get("Students");
 
-    // Create Notification and Notify Observers
-    public String createNotification(String notificationData, int courseId) {
+        String notificationData= (String) ob.get("notificationContent");
+        for(Integer id: student_ids){
+           User user=  studentCourseRepo.findSpecificEnrolledUser(courseId,id);
+           if(user==null) continue;
+            Notification notification = new Notification();
+            notification.setCourse(course);
+            notification.setNotificationContent(notificationData);
+            notification.setnotificationStatue(false);
+            notification.setUser(user);
+            notificationRepository.save(notification);
+        }
+
+        return "done. but only enrolled students got that notification";
+    }
+
+
+
+    public String createNotificationforALL(String notificationData, int courseId) {
         Course course = courseRepo.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course not found"));
 
@@ -52,7 +75,6 @@ public class NotificationService {
 
             notificationRepository.save(notification);
         }
-
 
         return "all enrolled students just recieved that notification";
     }

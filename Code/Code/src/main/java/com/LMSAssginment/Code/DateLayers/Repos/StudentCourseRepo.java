@@ -20,4 +20,9 @@ public interface StudentCourseRepo extends JpaRepository<StudentCourse, Long> {
         @Query(value = "SELECT u FROM User u WHERE u.id IN (SELECT sc.student.id FROM StudentCourse sc WHERE sc.course.id = :course_id)")
         List<User> findAllEnrolledUsers(@Param("course_id") Integer course_id);
 
+        @Query(value = "SELECT u FROM User u WHERE u.id = :user_ID AND u.id IN (SELECT sc.student.id FROM StudentCourse sc WHERE sc.course.id = :course_id)")
+        User findSpecificEnrolledUser(@Param("course_id") Integer course_id, @Param("user_ID") Integer user_ID);
+
+
+
 }
