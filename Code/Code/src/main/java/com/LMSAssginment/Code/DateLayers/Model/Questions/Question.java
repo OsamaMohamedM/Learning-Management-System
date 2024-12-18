@@ -73,5 +73,13 @@ public abstract class Question {
         this.assessments = assessments;
     }
 
+    public String getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(String questionType) {
+        this.questionType = questionType;
+    }
+
     public abstract void display();
 }

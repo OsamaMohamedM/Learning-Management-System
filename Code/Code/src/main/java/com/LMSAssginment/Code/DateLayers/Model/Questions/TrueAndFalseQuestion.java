@@ -24,7 +24,7 @@ public class TrueAndFalseQuestion extends Question {
     }
 
     // Getters and Setters
-    public boolean isAnswer() {
+    public boolean getAnswer() {
         return answer;
     }
 

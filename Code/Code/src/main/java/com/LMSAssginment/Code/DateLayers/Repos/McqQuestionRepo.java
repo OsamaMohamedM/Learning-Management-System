@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface McqQuestionRepo extends JpaRepository<McqQuestion,Integer> {
 
+    @Query(value = "SELECT a FROM McqQuestion a WHERE a.id = :q_id")
+    McqQuestion findMcqQuestionbyQuestionId(@Param("q_id") int q_id);
 
 
 }
