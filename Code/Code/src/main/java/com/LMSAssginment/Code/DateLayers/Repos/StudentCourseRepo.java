@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface StudentCourseRepo extends JpaRepository<StudentCourse, Long> {
-        List<StudentCourse> findByStudentId(Long studentId);
+public interface StudentCourseRepo extends JpaRepository<StudentCourse, Integer> {
+        List<StudentCourse> findByStudentId(int studentId);
         @Query("SELECT c FROM Course c")
         List<Course> findAllCourses();
 

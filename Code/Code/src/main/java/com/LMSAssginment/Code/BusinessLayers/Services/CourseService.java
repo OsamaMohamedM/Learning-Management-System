@@ -26,12 +26,26 @@ public class CourseService {
 
     public void addCourse(@Autowired Course course,@Autowired int instructorId) {
         try{
-            if (instructorId != 0) {
+            if (instructorId != 0 && course != null) {
+                boolean f = false; 
+                String name = course.getName();
+                List<Course> courses = courseRepository.findAll();
+                for (Course c : courses) {
+                    if (c.getName().equals(name)) {
+                        System.out.println("Course already exists");
+                        f = true;
+                        break;
+                    }
+                }
+                if (f) {
+                    System.out.println("Course already exists");
+                    return;
+                }
                 if (instructorCourseRepo.findById(instructorId) != null) {
                     courseRepository.save(course);
                 }
             }
-            else System.out.println("Instructor not found");
+            else System.out.println("Invalid data");
         } catch (Exception e) {
             System.out.println(e);
         }

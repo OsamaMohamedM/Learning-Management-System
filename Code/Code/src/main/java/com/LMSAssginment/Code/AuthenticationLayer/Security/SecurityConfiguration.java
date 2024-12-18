@@ -33,6 +33,13 @@ public class SecurityConfiguration {
                         .requestMatchers("/signup").permitAll()
                         .requestMatchers("/performanceTracking/**").permitAll()
                         .requestMatchers("/createUser/**").hasRole("ADMIN")
+                        .requestMatchers("/course/create/**").hasRole("INSTRUCTOR")
+                        .requestMatchers("/course/update").hasRole("INSTRUCTOR")
+                        .requestMatchers("/course/delete/**").hasRole("INSTRUCTOR")
+                        .requestMatchers("/course/addLesson").hasRole("INSTRUCTOR")
+                        .requestMatchers("/drop/**").hasRole("INSTRUCTOR")
+                        .requestMatchers("/enroll/**").hasRole("STUDENT")
+                        .requestMatchers("enroll/view/**").hasRole("INNSTRUCTOR")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
