@@ -42,16 +42,14 @@ public class NotificationService {
         Course course = courseRepo.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course not found"));
 
-        // Get a list of all students enrolled in the course
         List<User> students = studentCourseRepo.findAllEnrolledUsers(courseId);
         for (User student : students) {
             Notification notification = new Notification();
             notification.setCourse(course);
             notification.setNotificationContent(notificationData);
             notification.setnotificationStatue(false);
-            notification.setUser(student); // Associate the student User object with the notification
+            notification.setUser(student);
 
-            // Save notification for each student
             notificationRepository.save(notification);
         }
 

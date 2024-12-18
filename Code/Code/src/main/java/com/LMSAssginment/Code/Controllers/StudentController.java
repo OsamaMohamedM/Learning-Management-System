@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/{student_id}/{course_id}/{assessment_id}")
+@RequestMapping("/{user_id}/{course_id}/{assessment_id}")
 public class StudentController {
     @Autowired
     private StudentAssessmentResponseService studentAssessmentResponceService;
@@ -76,7 +76,7 @@ public class StudentController {
     }
 
     @PostMapping("/displayAssessment/submitQuiz")
-    public String submitQuiz(@PathVariable int student_id, @PathVariable int assessment_id, @PathVariable int course_id, @RequestBody Map<String, Object> studentAnswers){
+    public String submitQuiz(@PathVariable int user_id, @PathVariable int assessment_id, @PathVariable int course_id, @RequestBody Map<String, Object> studentAnswers){
         String result;
         int count = 1, totalNumberOfGrades = 0, correct = 0;
                 /*
@@ -96,7 +96,7 @@ public class StudentController {
                 }
                 count++;
             }
-            assessmentGrade = new AssessmentGrade(student_id, assessment_id, course_id, totalNumberOfGrades);
+            assessmentGrade = new AssessmentGrade(user_id, assessment_id, course_id, totalNumberOfGrades);
             result = "Your correct questions is: " + correct + ", Your grades is: " + totalNumberOfGrades;
             studentAssessmentResponceService.saveAssessmentGrade(assessmentGrade);
 
@@ -104,20 +104,21 @@ public class StudentController {
     }
 
 
-    @GetMapping("/displayAssessment/submitAssignment/{file_name}")
-    public String submitAssignment(@PathVariable int student_id, @PathVariable int assessment_id, @PathVariable int course_id, @PathVariable String file_name){
-        File file = new File(file_name);
-        FileAnswer fileAnswer = new FileAnswer(file);
+    @PostMapping("/displayAssessment/submitAssignment")
+    public String submitAssignment(@PathVariable int user_id, @PathVariable int assessment_id, @PathVariable int course_id, @RequestParam MultipartFile file){
+        String fileName = file.getOriginalFilename();
+        byte[] fileData = file.getBytes();
+        FileAnswer fileAnswer = new FileAnswer(file_name, fileData);
         String result;
         AssessmentGrade assessmentGrade;
-        assessmentGrade = new AssessmentGrade(student_id, assessment_id, course_id, 0);
+        assessmentGrade = new AssessmentGrade(user_id, assessment_id, course_id, 0);
         result = "Your Assignment has been uploaded succeffuly";
         List<FileAnswer> fileAnswers = new ArrayList<>();
         fileAnswers.add(fileAnswer);
-        StudentAssessmentResponse studentAssessmentResponse = new StudentAssessmentResponse(assessment, student_id, course_id, fileAnswers);
+        StudentAssessmentResponse studentAssessmentResponse = new StudentAssessmentResponse(assessment, user_id, course_id, fileAnswers);
         studentAssessmentResponceService.saveAssignment(studentAssessmentResponse);
 
-        return result;
+        return "result";
     }
 
 }
