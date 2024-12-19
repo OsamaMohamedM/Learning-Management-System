@@ -1,4 +1,4 @@
-package com.LMSAssginment.Code.BusinessLayer.PerformanceTracking.GradingStrategies;
+package com.LMSAssginment.Code.BusinessLayers.Services.PerformanceTracking.GradingStrategies;
 
 
 import com.LMSAssginment.Code.DateLayers.Model.Course.AssessmentGrade;

@@ -1,4 +1,4 @@
-package com.LMSAssginment.Code.Services;
+package com.LMSAssginment.Code.BusinessLayers.Services;
 
 import com.LMSAssginment.Code.DateLayers.Model.Course.Assessment;
 import com.LMSAssginment.Code.DateLayers.Model.Questions.McqQuestion;

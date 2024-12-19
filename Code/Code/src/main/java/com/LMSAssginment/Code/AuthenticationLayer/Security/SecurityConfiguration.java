@@ -1,4 +1,6 @@
-<<<<<<< HEAD
+package com.LMSAssginment.Code.AuthenticationLayer.Security;
+
+
 //package com.LMSAssginment.Code.AuthenticationLayer.Security;
 //
 //import org.springframework.context.annotation.Bean;
@@ -45,9 +47,9 @@
 //    }
 //
 //}
+//package com.LMSAssginment.Code.AuthenticationLayer.Security;
 //
-=======
-package com.LMSAssginment.Code.AuthenticationLayer.Security;
+
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -95,4 +97,4 @@ public class SecurityConfiguration {
 
 }
 
->>>>>>> origin/Roaa
+
