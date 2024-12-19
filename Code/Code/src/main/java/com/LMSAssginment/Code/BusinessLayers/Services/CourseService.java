@@ -64,7 +64,7 @@ public class CourseService {
 
 
 
-    @Autowired
+
     public List<CourseDTO> viewAll() {
         List<Course> courses = courseRepository.findAll();
         List<CourseDTO> courseDTOs = new ArrayList<>();
@@ -143,6 +143,9 @@ public class CourseService {
         } catch(Exception e) {
             System.out.println(e);
         }
+    }
+    public Course getCourseById(int id){
+        return courseRepository.findById(id).orElse(null);
     }
 }
 

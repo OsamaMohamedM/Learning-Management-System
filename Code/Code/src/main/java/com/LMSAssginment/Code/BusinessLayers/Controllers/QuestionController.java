@@ -1,10 +1,10 @@
 package com.LMSAssginment.Code.BusinessLayers.Controllers;
 
+import com.LMSAssginment.Code.BusinessLayers.Services.QuestionService;
 import com.LMSAssginment.Code.DateLayers.Model.Course.Course;
 import com.LMSAssginment.Code.DateLayers.Model.Questions.McqQuestion;
 import com.LMSAssginment.Code.DateLayers.Model.Questions.ShortAnswerQuestion;
 import com.LMSAssginment.Code.DateLayers.Model.Questions.TrueAndFalseQuestion;
-import com.LMSAssginment.Code.BusinessLayers.Services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +16,6 @@ import java.util.Map;
 public class QuestionController {
     @Autowired
     private QuestionService questionService;
-
-//    @PostMapping("/createQuestions")
-//    public String addMcqQuestions(@RequestBody String mcqQuestions){
-////        return questionService.addMcqQuestions(mcqQuestions);
-//        return "cfvfv";
-//    }
 
     @PostMapping("/mcq")
     public Course addMcqQuestions(@PathVariable int course_id, @RequestBody List<Map<String, Object>> mcqQuestions){
@@ -44,10 +38,10 @@ public class QuestionController {
     public Course addShortAnswerQuestions(@PathVariable int course_id, @RequestBody List<Map<String, Object>> shortAnswerQuestions){
         Course course = questionService.getCourseById(course_id);
         for (Map<String, Object> ob : shortAnswerQuestions){
-           ShortAnswerQuestion shortAnswerQuestion = new ShortAnswerQuestion(course,
-                   (String) ob.get("text"),
+            ShortAnswerQuestion shortAnswerQuestion = new ShortAnswerQuestion(course,
+                    (String) ob.get("text"),
                     (String) ob.get("answer"),
-                   "sa");
+                    "sa");
             questionService.addShortAnswerQuestion(shortAnswerQuestion);
         }
         return  course;
