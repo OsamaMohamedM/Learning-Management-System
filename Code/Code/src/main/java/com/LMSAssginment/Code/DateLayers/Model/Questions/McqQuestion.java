@@ -1,6 +1,14 @@
 package com.LMSAssginment.Code.DateLayers.Model.Questions;
 
+import com.LMSAssginment.Code.DateLayers.Model.Course.Course;
+import com.LMSAssginment.Code.DateLayers.Repos.McqQuestionRepo;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import org.springframework.beans.factory.annotation.Autowired;
+
+@Entity
 public class McqQuestion extends Question {
+
     private String optionA;
     private String optionB;
     private String optionC;
@@ -12,9 +20,13 @@ public class McqQuestion extends Question {
 
     }
 
+    public McqQuestion(){
 
-    public McqQuestion( String text, String optionA, String optionB, String optionC, String optionD, String answer) {
-        super(text, null);
+    }
+
+
+    public McqQuestion(Course course, String text, String optionA, String optionB, String optionC, String optionD, String answer, String quetionType) {
+        super(text, course, quetionType);
         this.optionA = optionA;
         this.optionB = optionB;
         this.optionC = optionC;

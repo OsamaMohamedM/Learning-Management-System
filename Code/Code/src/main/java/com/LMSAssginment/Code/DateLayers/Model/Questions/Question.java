@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = ShortAnswerQuestion.class, name = "short-answer"),
@@ -27,13 +28,17 @@ public abstract class Question {
     @ManyToMany(mappedBy = "questions")
     private List<Assessment> assessments;
 
+
+    private String questionType;
+
     public Question() {
     }
 
-    public Question( String text, Course course) {
+    public Question( String text, Course course, String questionType) {
        
         this.text = text;
         this.course = course;
+        this.questionType = questionType;
     }
 
     public int getId() {
@@ -66,6 +71,14 @@ public abstract class Question {
 
     public void setAssessments(List<Assessment> assessments) {
         this.assessments = assessments;
+    }
+
+    public String getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(String questionType) {
+        this.questionType = questionType;
     }
 
     public abstract void display();

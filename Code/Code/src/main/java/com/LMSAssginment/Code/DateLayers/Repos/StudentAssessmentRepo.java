@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.*;
 
 public interface StudentAssessmentRepo extends JpaRepository<StudentAssessmentResponse, Integer> {
 
-    @Query("SELECT a FROM Assessment a WHERE a.id = :id")
-    Assessment findAssessmentById(@Param("id") Long id);
+    @Query("SELECT a FROM Assessment a WHERE a.id = :id and a.course.id = :course_id")
+    Assessment findAssessmentById(@Param("id") int id, @Param("course_id") int course_id);
 
 }

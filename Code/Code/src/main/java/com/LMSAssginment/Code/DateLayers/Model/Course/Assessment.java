@@ -17,7 +17,7 @@ public class Assessment {
     private int totalGrades;
     private Double duration;
     private Date startDate;
-    private String type;
+    private String type; // quiz or assignment
 
     @ManyToOne
     @JoinColumn(name = "course_id")
