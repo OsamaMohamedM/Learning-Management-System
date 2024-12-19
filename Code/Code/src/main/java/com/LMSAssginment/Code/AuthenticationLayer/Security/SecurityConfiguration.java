@@ -84,6 +84,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/signup").permitAll()
                         .requestMatchers("/performanceTracking/**").permitAll()
                         .requestMatchers("/createUser/**").hasRole("ADMIN")
+                        .requestMatchers("/{course_id}/createAssessment").hasRole("INSTRUCTOR")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
