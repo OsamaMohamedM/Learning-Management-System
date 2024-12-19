@@ -36,6 +36,18 @@ public class NotificationService {
         this.notificationRepository = notificationRepo;
     }
 
+    public void notifyInstructor(int studentId, Course course) {
+        User instructor = userRepo.findById(course.getInstructor().getId()).orElse(null);
+        Notification notification = new Notification();
+        notification.setnotificationStatue(false);
+        notification.setUser(instructor);
+        notification.setCourse(course);
+        notification.setNotificationContent("Student with ID: " + studentId + " just enrolled in your course: " + course.getName());
+
+        notificationRepository.save(notification);
+
+    }
+
 
 
     // specifc

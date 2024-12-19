@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.LMSAssginment.Code.DateLayers.Model.Course.Course;
+import com.LMSAssginment.Code.Services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.LMSAssginment.Code.DateLayers.Model.Student.Student;
@@ -18,15 +19,21 @@ public class EnrollService {
     private final StudentCourseRepo repository;
     @Autowired
     private final InstructorCourseRepo courseRepository;
-    public EnrollService(StudentCourseRepo repository, InstructorCourseRepo courseRepository) {
+
+    @Autowired
+    private final NotificationService notificationService;
+
+    public EnrollService(StudentCourseRepo repository, InstructorCourseRepo courseRepository,NotificationService notificationService) {
         this.repository = repository;
         this.courseRepository = courseRepository;
+        this.notificationService=notificationService;
     }
     @Autowired
     private UserRepo studentRepo;
     public void enroll(int courseId, int studentId) {
         try{
             if (studentId != 0) {
+                //????//???? why not  just query?
                 if (studentRepo.findById(studentId) != null) {
                     List<Student> students = studentRepo.findAllStudents();
                     Student student = new Student();
@@ -43,6 +50,10 @@ public class EnrollService {
                     studentCourse.setStudent(student);
                     studentCourse.setEnrollmentDate(java.time.LocalDateTime.now());
                     repository.save(studentCourse);
+
+
+                    notificationService.notifyInstructor(studentId,crs);
+
                 }
             }
             else System.out.println("Student not found");
