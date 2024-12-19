@@ -1,27 +1,26 @@
 package com.LMSAssginment.Code.DateLayers.Model.Course;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Embeddable;
 
-@Entity
-@Table(name = "AssessmentGrades")
-@IdClass(AssessmentGradeCompositeId.class)
-public class AssessmentGrade {
-    @Id
-    @Column(name = "student_id", nullable = false)
+import java.io.Serializable;
+
+
+
+@Embeddable
+public class AssessmentGradeCompositeId implements Serializable {
     private int studentID;
-    @Id
-    @Column(name = "assessment_id", nullable = false)
     private int assessmentId;
-    @Id
-    @Column(name = "course_id", nullable = false)
     private int courseId;
 
-    @Column(name = "grade")
-    private int grade;
-    @Column(name = "feedBack")
-    private String feedBack;
+    public AssessmentGradeCompositeId() {
 
+    }
 
+    public AssessmentGradeCompositeId(int studentID, int assessmentId, int courseId) {
+        this.studentID = studentID;
+        this.assessmentId = assessmentId;
+        this.courseId = courseId;
+    }
 
 
     public int getStudentID() {
@@ -46,13 +45,5 @@ public class AssessmentGrade {
 
     public void setCourseId(int courseId) {
         this.courseId = courseId;
-    }
-
-    public int getGrade() {
-        return grade;
-    }
-
-    public void setGrade(int grade) {
-        this.grade = grade;
     }
 }

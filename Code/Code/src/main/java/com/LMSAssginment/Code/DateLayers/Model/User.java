@@ -1,8 +1,23 @@
 package com.LMSAssginment.Code.DateLayers.Model;
 
+import com.LMSAssginment.Code.DateLayers.Model.Admin.Admin;
+import com.LMSAssginment.Code.DateLayers.Model.Instructor.Instructor;
+import com.LMSAssginment.Code.DateLayers.Model.Student.Student;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.*;
 import java.util.Date;
 
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "entityType"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Admin.class, name = "ADMIN"),
+        @JsonSubTypes.Type(value = Instructor.class, name = "INSTRUCTOR"),
+        @JsonSubTypes.Type(value = Student.class, name = "STUDENT")
+})
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User   {
