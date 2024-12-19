@@ -2,7 +2,6 @@ package com.LMSAssginment.Code.BusinessLayers.Services;
 
 import com.LMSAssginment.Code.DateLayers.Model.Course.Assessment;
 import com.LMSAssginment.Code.DateLayers.Model.Course.Course;
-import com.LMSAssginment.Code.DateLayers.Model.Questions.McqQuestion;
 import com.LMSAssginment.Code.DateLayers.Model.Questions.Question;
 import com.LMSAssginment.Code.DateLayers.Repos.*;
 import org.springframework.beans.factory.annotation.Autowired;

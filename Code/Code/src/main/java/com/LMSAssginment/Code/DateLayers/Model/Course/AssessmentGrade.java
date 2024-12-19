@@ -1,6 +1,8 @@
 package com.LMSAssginment.Code.DateLayers.Model.Course;
 
+import com.LMSAssginment.Code.Services.AssessmentGradeKey;
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "AssessmentGrades")
@@ -21,7 +23,16 @@ public class AssessmentGrade {
     @Column(name = "feedBack")
     private String feedBack;
 
+    public AssessmentGrade(){
 
+    }
+
+    public AssessmentGrade(int studentID, int assessmentId, int courseId, int grade){
+        this.studentID = studentID;
+        this.assessmentId = assessmentId;
+        this.courseId = courseId;
+        this.grade = grade;
+    }
 
 
     public int getStudentID() {

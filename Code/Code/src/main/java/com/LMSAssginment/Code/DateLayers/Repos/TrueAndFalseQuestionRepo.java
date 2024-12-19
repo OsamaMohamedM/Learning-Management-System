@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface TrueAndFalseQuestionRepo  extends JpaRepository<TrueAndFalseQuestion, Integer> {
 
-    @Query(value = "SELECT a FROM TrueAndFalseAnswer a WHERE a.id = :q_id")
+    @Query(value = "SELECT a FROM TrueAndFalseQuestion a WHERE a.id = :q_id")
     TrueAndFalseQuestion findTrueAndFalseQuestionbyQuestionId(@Param("q_id") int q_id);
 }
