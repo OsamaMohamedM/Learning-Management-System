@@ -20,6 +20,9 @@ public class SignUpController {
 
     @PostMapping
     public void signUpNewAdmin(@RequestBody SignUpDto signUpDto) {
+        System.out.println("Trying to add new Admin");
+        System.out.println(signUpDto.getUserType());
+        System.out.println(signUpDto.getSignUpKey());
         if(!adminSignUpSecretKey.equals(signUpDto.getSignUpKey()) || !signUpDto.getUserType().equals("ADMIN")) {
             throw new ResponseStatusException(
                     HttpStatus.UNAUTHORIZED,

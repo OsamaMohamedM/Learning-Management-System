@@ -15,6 +15,11 @@ public class AssessmentTrackingController {
     @Autowired
     private AssessmentTrackingService assessmentTrackingService;
 
+    @GetMapping
+    public String test() {
+        return "test";
+    }
+
     @GetMapping("/{assessmentType}/{assessmentId}")
     public ResponseEntity<?> GetStatisticsForSpecificAssessment(@PathVariable("assessmentType") String assessmentType, @PathVariable("assessmentId") int assessmentId) {
         try{

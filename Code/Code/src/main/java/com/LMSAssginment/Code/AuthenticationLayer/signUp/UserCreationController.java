@@ -16,13 +16,11 @@ public class  UserCreationController {
 
     @PostMapping
     public ResponseEntity<String> CreateUserAccount(@RequestBody User user) {
-        try {
-            signUpService.AddNewUser(user);
+
+            if(!signUpService.AddNewUser(user)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+            }
             return ResponseEntity.ok("User Created Successfully");
 
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
     }
 }

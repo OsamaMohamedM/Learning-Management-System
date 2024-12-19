@@ -12,14 +12,15 @@ public class SignUpService {
     @Autowired
     private UserRepo userRepo;
 
-    public void AddNewUser(User user) {
+    public boolean AddNewUser(User user) {
         if(user.getEmail() == null || userRepo.findByEmail(user.getEmail()).isPresent()) {
-            throw new RuntimeException("The provided email is null or already in use.");
+            return false;
         }
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         // Encrypt the password before storing it
         String encodedPassword = encoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         userRepo.save(user);
+        return true;
     }
 }

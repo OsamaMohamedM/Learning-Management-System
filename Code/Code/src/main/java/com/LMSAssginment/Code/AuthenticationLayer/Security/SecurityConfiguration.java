@@ -1,5 +1,6 @@
 package com.LMSAssginment.Code.AuthenticationLayer.Security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -15,8 +16,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 
 public class SecurityConfiguration {
+    @Autowired
     private  AuthenticationProvider authenticationProvider;
 
+    @Autowired
     private JWTAuthenticationFilter jwtAuthFilter;
 
     public SecurityConfiguration(AuthenticationProvider authenticationProvider, JWTAuthenticationFilter jwtAuthFilter) {
@@ -31,7 +34,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/signup").permitAll()
-                        .requestMatchers("/performanceTracking/**").permitAll()
+                        .requestMatchers("/performanceTracking/**").hasRole("INSTRUCTOR")
                         .requestMatchers("/createUser/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

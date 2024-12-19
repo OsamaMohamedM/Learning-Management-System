@@ -102,4 +102,16 @@ public abstract class User   {
         this.userType = userType;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", Password='" + Password + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", gender='" + gender + '\'' +
+                ", userType='" + userType + '\'' +
+                ", birthDate=" + birthDate +
+                '}';
+    }
 }
