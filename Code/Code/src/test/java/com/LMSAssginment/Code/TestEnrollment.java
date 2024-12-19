@@ -101,7 +101,7 @@ public class TestEnrollment {
     }
 
     @Test
-    public void testEnrollWithInvalidData() {
+    public void testEnrollWithInvalidStuudentId() {
         student = (Student) studentRepo.findByEmail("s5@gmail.com").get();
         int studentId = student.getId();
         int courseId = course.getId();

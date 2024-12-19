@@ -14,10 +14,12 @@ import com.LMSAssginment.Code.DateLayers.Repos.UserRepo;
 public class EnrollService {
     private final StudentCourseRepo repository;
     private final InstructorCourseRepo courseRepository;
+
     public EnrollService(StudentCourseRepo repository, InstructorCourseRepo courseRepository) {
         this.repository = repository;
         this.courseRepository = courseRepository;
     }
+    
     @Autowired
     private UserRepo studentRepo;
     public void enroll(int courseId, int studentId) {

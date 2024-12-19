@@ -1,7 +1,11 @@
 package com.LMSAssginment.Code;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,8 +15,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.LMSAssginment.Code.AuthenticationLayer.signUp.SignUpService;
 import com.LMSAssginment.Code.BusinessLayers.Services.CourseService;
 import com.LMSAssginment.Code.DateLayers.Repos.InstructorCourseRepo;
+import com.LMSAssginment.Code.DateLayers.Repos.LessonRepo;
 import com.LMSAssginment.Code.DateLayers.Repos.UserRepo;
+
+import jakarta.transaction.Transactional;
+import net.bytebuddy.dynamic.DynamicType.Builder.FieldDefinition.Optional;
+
 import com.LMSAssginment.Code.DateLayers.Model.Course.Course;
+import com.LMSAssginment.Code.DateLayers.Model.Course.Lesson;
 import com.LMSAssginment.Code.DateLayers.Model.Instructor.Instructor;
 
 //@AutoConfigureMockMvc(addFilters = false)
@@ -32,9 +42,12 @@ public class TestCourseManagement {
     @Autowired
     private SignUpService signUpService;
 
+    @Autowired
+    private LessonRepo lessonRepo;
+
     private Instructor instructor;
     private Course course;
-
+    private Lesson lesson;
 
     @BeforeEach
     public void setup() {
@@ -49,6 +62,10 @@ public class TestCourseManagement {
         course.setMaxNumberOfStudent(100);
         course.setDescription("This is a test course");
         course.setInstructor(instructor);
+        course.setLessons(new ArrayList<>());
+        lesson = new Lesson();
+        lesson.setOtp(1234);
+        lesson.setDuration(50);
     }
 
     @Test
@@ -89,6 +106,17 @@ public class TestCourseManagement {
     } 
 
     @Test
+    public void testUpdateCourseWithInvalidName() {
+        instructor = (Instructor) instructorCourseRepo.findByEmail("123@gmail.com").get();
+        int instructorId = instructor.getId();
+        courseService.addCourse(course, instructorId);
+        course.setName(null);
+        courseService.updateCourse(course);
+        Course updatedCourse = courseRepository.findById(course.getId()).get();
+        assertEquals("TCourse", updatedCourse.getName());
+    } 
+
+    @Test
     public void testDeleteCourse() {
         instructor = (Instructor) instructorCourseRepo.findByEmail("123@gmail.com").get();
         int instructorId = instructor.getId();
@@ -98,15 +126,25 @@ public class TestCourseManagement {
         assertFalse(courseRepository.findById(course.getId()).isPresent());
     }
 
+    @Test
+    @Transactional
+    public void testAddLesson() {
+        instructor = (Instructor) instructorCourseRepo.findByEmail("123@gmail.com").get();
+        int instructorId = instructor.getId();
+        courseService.addCourse(course, instructorId);
+        lesson.setCourse(course);
+        courseService.addLesson(lesson);
+        java.util.Optional<Lesson> savedLesson = lessonRepo.findById(lesson.getId());
+        assertTrue(savedLesson.isPresent());
+        Course updatedCourse = courseRepository.findById(course.getId()).get();
+        int lessonSize = updatedCourse.getLessons().size(); 
+        assertEquals(1, lessonSize);
+    }
+
     @AfterEach
     public void cleanup() {
-        // Delete the course if it exists
-        if (course != null) {
-            courseRepository.deleteById(course.getId());
-        }
-        // Delete the instructor if it exists
-        if (instructor != null) {
-            instructorCourseRepo.deleteById(instructor.getId());
-        }
+        courseRepository.deleteById(course.getId());
+        instructorCourseRepo.deleteById(instructor.getId());
+        lessonRepo.deleteById(lesson.getId());
     }
 }

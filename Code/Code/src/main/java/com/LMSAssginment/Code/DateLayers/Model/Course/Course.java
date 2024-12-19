@@ -97,7 +97,8 @@ public class Course {
     public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
     }
- public void addLessons( Lesson lesson) {
+    
+    public void addLessons( Lesson lesson) {
         this.lessons.add(lesson);
     }
 

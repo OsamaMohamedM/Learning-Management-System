@@ -12,6 +12,7 @@ import com.LMSAssginment.Code.DateLayers.Repos.InstructorCourseRepo;
 import com.LMSAssginment.Code.DateLayers.Repos.LessonRepo;
 import com.LMSAssginment.Code.DateLayers.Repos.UserRepo;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 
 @Service
 public class CourseService {
@@ -69,6 +70,7 @@ public class CourseService {
         return courseDTOs;
     }
     
+    @Transactional
     public void addLesson(@Autowired Lesson lesson) {
         if (lesson.getCourse() == null || lesson.getCourse().getId() == 0) {
             throw new IllegalArgumentException("Lesson must have an associated course.");
