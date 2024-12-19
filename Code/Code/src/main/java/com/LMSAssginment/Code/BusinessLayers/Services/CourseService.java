@@ -1,4 +1,5 @@
 package com.LMSAssginment.Code.BusinessLayers.Services;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +13,7 @@ import com.LMSAssginment.Code.DateLayers.Repos.InstructorCourseRepo;
 import com.LMSAssginment.Code.DateLayers.Repos.LessonRepo;
 import com.LMSAssginment.Code.DateLayers.Repos.UserRepo;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class CourseService {
@@ -37,6 +39,30 @@ public class CourseService {
         }
     }
 
+
+
+    public void uploadMedia(int lessonId, MultipartFile file) throws IOException {
+        // تحقق من وجود الدرس
+        Optional<Lesson> optionalLesson = lessonRepo.findById(lessonId);
+        if (optionalLesson.isPresent()) {
+            Lesson lesson = optionalLesson.get();
+
+            // تحقق من صحة الملف
+            if (file != null && !file.isEmpty()) {
+                lesson.setContentFile(file.getBytes());
+                lesson.setMediaType(file.getContentType());
+            } else {
+                throw new IllegalArgumentException("Media file is required.");
+            }
+
+            lessonRepo.save(lesson);
+        } else {
+            throw new EntityNotFoundException("Lesson with ID " + lessonId + " not found.");
+        }
+    }
+
+
+
     @Autowired
     public List<CourseDTO> viewAll() {
         List<Course> courses = courseRepository.findAll();
@@ -54,7 +80,7 @@ public class CourseService {
         }
         return courseDTOs;
     }
-    
+
     public void addLesson(@Autowired Lesson lesson) {
         if (lesson.getCourse() == null || lesson.getCourse().getId() == 0) {
             throw new IllegalArgumentException("Lesson must have an associated course.");
@@ -64,7 +90,7 @@ public class CourseService {
             Course course = optionalCourse.get();
             lesson.setCourse(course);
             course.addLessons(lesson);
-            lessonRepo.save(lesson); 
+            lessonRepo.save(lesson);
             courseRepository.save(course);
         } else {
             throw new EntityNotFoundException("Course with ID " + lesson.getCourse().getId() + " not found.");
@@ -95,6 +121,16 @@ public class CourseService {
             System.out.println(e);
         }
     }
+
+    public byte[] getLessonMedia(int lessonId) {
+        Lesson lesson = lessonRepo.findById(lessonId)
+                .orElseThrow(() -> new EntityNotFoundException("Lesson not found with ID: " + lessonId));
+        if (lesson.getContentFile() == null || lesson.getContentFile().length == 0) {
+            throw new IllegalArgumentException("No media found for the given lesson.");
+        }
+        return lesson.getContentFile();
+    }
+
 
     public void deleteCourse(@Autowired int id) {
         try{

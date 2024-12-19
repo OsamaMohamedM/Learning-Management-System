@@ -21,6 +21,17 @@ public class Lesson implements Serializable {
     @Column(columnDefinition = "BLOB")
     private byte[] contentFile;
 
+
+    String mediaType;
+
+    public String getMediaType() {
+        return mediaType;
+    }
+
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
+    }
+
     public Lesson() {
     }
 
