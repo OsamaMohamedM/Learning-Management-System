@@ -1,11 +1,11 @@
-package com.LMSAssginment.Code.Controllers;
+package com.LMSAssginment.Code.BusinessLayers.Controllers;
 import com.LMSAssginment.Code.Services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 @RestController
-@RequestMapping("/{CourseID}/CreateNotification")
+@RequestMapping("/{course_id}/createNotification")
 
 public class SendNotificationController {
 
@@ -21,15 +21,15 @@ public class SendNotificationController {
 
     // ( students and instructors )
     @PostMapping("/allEnrolled")
-    public String createNotificationforALL(@RequestBody String notificationContent, @PathVariable int CourseID) {
+    public String createNotificationforALL(@RequestBody String notificationContent, @PathVariable int courseId) {
         // Save notification and return a response
-        return notificationService.createNotificationforALL(notificationContent,CourseID);
+        return notificationService.createNotificationforALL(notificationContent,courseId);
     }
 
-    @PostMapping("/Specific")
-    public String createNotification(@RequestBody Map<String,Object> ob, @PathVariable int CourseID) {
+    @PostMapping("/specific")
+    public String createNotification(@RequestBody Map<String,Object> ob, @PathVariable int courseId) {
         // Save notification and return a response
-        return notificationService.createNotificationforAlist(ob,CourseID);
+        return notificationService.createNotificationforAlist(ob,courseId);
     }
 
     /*

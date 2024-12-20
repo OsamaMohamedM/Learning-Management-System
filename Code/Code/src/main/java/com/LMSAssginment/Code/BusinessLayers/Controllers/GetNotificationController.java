@@ -1,4 +1,4 @@
-package com.LMSAssginment.Code.Controllers;
+package com.LMSAssginment.Code.BusinessLayers.Controllers;
 import com.LMSAssginment.Code.DateLayers.Model.Notification;
 import com.LMSAssginment.Code.DateLayers.Repos.*;
 import com.LMSAssginment.Code.Services.NotificationService;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/{userID}/Notifications")
+@RequestMapping("/{userID}/notifications")
 public class GetNotificationController {
 
     @Autowired
@@ -34,7 +34,7 @@ public class GetNotificationController {
     }
 
     // :D
-    @GetMapping("/{notificationID}")  // specific
+    @GetMapping("/{notification_id}")  // specific
     // display all that one notification and set it to read
     public Notification getNotificationID(@PathVariable int userID,@PathVariable int notificationID) {
         return notificationService.getByNotificationID(notificationID,userID);
