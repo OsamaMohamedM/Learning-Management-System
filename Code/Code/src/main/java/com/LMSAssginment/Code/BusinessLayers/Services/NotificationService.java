@@ -1,5 +1,6 @@
-package com.LMSAssginment.Code.Services;
+package com.LMSAssginment.Code.BusinessLayers.Services;
 
+import com.LMSAssginment.Code.BusinessLayers.Services.EmailService;
 import com.LMSAssginment.Code.DateLayers.Model.Course.Course;
 import com.LMSAssginment.Code.DateLayers.Model.Instructor.Instructor;
 import com.LMSAssginment.Code.DateLayers.Model.Notification;
@@ -28,8 +29,7 @@ public class NotificationService {
 
     @Autowired
     private StudentCourseRepo studentCourseRepo;
-
-
+    private EmailService emailService;
     private final NotificationRepo notificationRepository;
 
     public NotificationService(NotificationRepo notificationRepo) {
@@ -44,6 +44,8 @@ public class NotificationService {
         notification.setCourse(course);
         notification.setNotificationContent("Student with ID: " + studentId + " just enrolled in your course: " + course.getName());
 
+        if(instructor!=null)
+        emailService.sendEmail(instructor.getEmail() , "Enrrol" , "Student with ID: " + studentId + " just enrolled in your course: " + course.getName());
         notificationRepository.save(notification);
 
     }
