@@ -66,4 +66,14 @@ public class AssessmentGrade {
     public void setGrade(int grade) {
         this.grade = grade;
     }
+    public void setFeedBack(String sth) {
+        this.feedBack = sth;
+    }
+    public String getFeedback() {
+        return this.feedBack;
+    }
+
+
+
+
 }
