@@ -73,8 +73,7 @@ class QuestionServiceTest {
 
         List<McqQuestion> questionList=mcqQuestionRepo.findAll();
 
-        assertNotNull(questionList);
-
+        assertEquals("mcq",questionList.get(0).getQuestionType());
         assertEquals(1,questionList.size());
 
     }
@@ -86,9 +85,8 @@ class QuestionServiceTest {
 
         List<ShortAnswerQuestion> questionList=shortAnswerQuestionRepo.findAll();
 
-        assertNotNull(questionList);
-
         assertEquals(1,questionList.size());
+        assertEquals("sa",questionList.get(0).getQuestionType());
     }
 
     @Test
@@ -99,8 +97,7 @@ class QuestionServiceTest {
 
         List<TrueAndFalseQuestion> questionList=trueAndFalseQuestionRepo.findAll();
 
-        assertNotNull(questionList);
-
+        assertEquals("tf",questionList.get(0).getQuestionType());
         assertEquals(1,questionList.size());
 
     }

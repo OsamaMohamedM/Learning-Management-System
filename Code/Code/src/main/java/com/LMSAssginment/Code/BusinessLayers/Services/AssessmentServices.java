@@ -50,7 +50,12 @@ public class AssessmentServices {
         List<Question> pass = new ArrayList<>();
         if (!random){
             List<Integer> tmp = (List<Integer>) assessment.get("questions");
+            // must get exactly numberOfQuestion number of questions not more not less
+            // tb efrd edyto list of question ids w kano a2l mn el number ?
+            // msh far2a 5odhm kolhm w 5las 7ta lw na2syn w a3ml beh assessment
+            int k=0;
             for (int id : tmp) {
+                if(k>numberOfQuestion) break;
                 Question current = getQuestionById(id);
                 pass.add(current);
             }
