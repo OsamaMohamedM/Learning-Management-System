@@ -95,7 +95,7 @@ public class NotificationService {
         List <Notification> tmp= notificationRepository.findNotificationsByUserId(userID);
         for(Notification c: tmp){
             notificationRepository.changeToRead(c.getId());
-            c.setnotificationStatue(false);
+            c.setnotificationStatue(true);
         }
         return tmp;
     }
@@ -105,7 +105,7 @@ public class NotificationService {
         if(tmp!=null && tmp.getUser().getId()!=userID) return null;
 
         notificationRepository.changeToRead(tmp.getId());
-        tmp.setnotificationStatue(false);
+        tmp.setnotificationStatue(true);
 
         return tmp;
     }
@@ -114,7 +114,7 @@ public class NotificationService {
         List <Notification> tmp= notificationRepository.getUnreadNotification(userID);
         for(Notification c: tmp){
             notificationRepository.changeToRead(c.getId());
-            c.setnotificationStatue(false);
+            c.setnotificationStatue(true);
         }
         return tmp;
     }
