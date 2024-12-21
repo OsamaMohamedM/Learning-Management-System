@@ -24,7 +24,7 @@ public class EnrollmentControl {
         catch(Exception e) {
             System.out.println(e);
         }
-        
+
     }
 
     @GetMapping("/enroll/view/{courseId}")
@@ -35,7 +35,7 @@ public class EnrollmentControl {
             System.out.println(e);
         }
         return null;
-    }     
+    }
 
     @DeleteMapping("/drop/{courseId}/{studentId}")
     public void dropCourse(@PathVariable int courseId, @PathVariable int studentId) {
@@ -44,6 +44,6 @@ public class EnrollmentControl {
         }
         catch(Exception e){
             System.out.println(e);
-        }   
+        }
     }
 }

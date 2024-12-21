@@ -22,7 +22,7 @@ public class TrueAndFalseAnswer extends Answer {
         return true;
     }
 
-    public boolean isAnswer() {
+    public boolean getAnswer() {
         return answer;
     }
 

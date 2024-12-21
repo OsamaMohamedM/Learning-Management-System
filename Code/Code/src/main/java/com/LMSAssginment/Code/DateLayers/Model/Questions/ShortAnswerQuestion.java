@@ -1,7 +1,16 @@
 package com.LMSAssginment.Code.DateLayers.Model.Questions;
 
+import com.LMSAssginment.Code.DateLayers.Model.Course.Course;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
 public class ShortAnswerQuestion extends Question {
     private String answer;
+
+    public ShortAnswerQuestion(){
+
+    }
 
     @Override
     public void display() {
@@ -9,8 +18,8 @@ public class ShortAnswerQuestion extends Question {
     }
 
     // Constructors, getters, and setters
-    public ShortAnswerQuestion( String text, String answer) {
-        super( text, null);
+    public ShortAnswerQuestion(Course course, String text, String answer, String quetionType) {
+        super(text, course, quetionType);
         this.answer = answer;
     }
 
