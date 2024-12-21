@@ -6,22 +6,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 @RestController
 @RequestMapping("/{course_id}/createNotification")
-
 public class SendNotificationController {
 
     @Autowired
     private final NotificationService notificationService;
 
-
-
     public SendNotificationController(NotificationService notificationService) {
         this.notificationService = notificationService;
     }
-
-
     // ( students and instructors )
     @PostMapping("/allEnrolled")
-    public String createNotificationforALL(@RequestBody String notificationContent, @PathVariable int courseId) {
+    public String createNotificationforALL(@RequestBody String notificationContent, @PathVariable("course_id") int courseId) {
         // Save notification and return a response
         return notificationService.createNotificationforALL(notificationContent,courseId);
     }

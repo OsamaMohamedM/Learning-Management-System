@@ -1,4 +1,4 @@
-package com.LMSAssginment.Code.AuthenticationLayer.Login;
+package com.LMSAssginment.Code.DateLayers.Model;
 
 public class UserLoginDto {
 

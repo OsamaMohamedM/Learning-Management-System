@@ -22,12 +22,6 @@ public class StudentController {
     @Autowired
     private CourseService courseService;
 
-
-
-
-
-
-
     @GetMapping("/displayAssessment")
     public List<String> displayAssessment(@PathVariable int assessment_id, @PathVariable int course_id){
         return studentAssessmentResponceService.showAssessment(assessment_id, course_id);

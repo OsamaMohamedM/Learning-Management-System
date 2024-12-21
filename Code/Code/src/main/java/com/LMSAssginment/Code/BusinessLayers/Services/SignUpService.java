@@ -26,7 +26,7 @@
 //    }
 //}
 
-package com.LMSAssginment.Code.AuthenticationLayer.signUp;
+package com.LMSAssginment.Code.BusinessLayers.Services;
 
 import com.LMSAssginment.Code.DateLayers.Model.User;
 import com.LMSAssginment.Code.DateLayers.Repos.UserRepo;

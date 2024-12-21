@@ -1,7 +1,7 @@
-package com.LMSAssginment.Code.AuthenticationLayer.signUp;
+package com.LMSAssginment.Code.BusinessLayers.Controllers;
 
+import com.LMSAssginment.Code.BusinessLayers.Services.SignUpService;
 import com.LMSAssginment.Code.DateLayers.Model.User;
-import com.LMSAssginment.Code.DateLayers.Repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

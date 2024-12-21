@@ -1,55 +1,4 @@
-package com.LMSAssginment.Code.AuthenticationLayer.Security;
-
-
-//package com.LMSAssginment.Code.AuthenticationLayer.Security;
-//
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.security.authentication.AuthenticationProvider;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-//
-//import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-//import org.springframework.security.config.http.SessionCreationPolicy;
-//import org.springframework.security.web.SecurityFilterChain;
-//import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-//
-//@Configuration
-//@EnableWebSecurity
-//
-//public class SecurityConfiguration {
-//    private  AuthenticationProvider authenticationProvider;
-//
-//    private JWTAuthenticationFilter jwtAuthFilter;
-//
-//    public SecurityConfiguration(AuthenticationProvider authenticationProvider, JWTAuthenticationFilter jwtAuthFilter) {
-//        this.authenticationProvider = authenticationProvider;
-//        this.jwtAuthFilter = jwtAuthFilter;
-//    }
-//
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests(authorize -> authorize
-//                        .requestMatchers("/login").permitAll()
-//                        .requestMatchers("/signup").permitAll()
-//                        .requestMatchers("/createUser/**").hasRole("ADMIN")
-//                        .anyRequest().authenticated()
-//                )
-//                .sessionManagement(session -> session
-//                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                )
-//                .authenticationProvider(authenticationProvider)
-//                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-//
-//        return http.build();
-//    }
-//
-//}
-//package com.LMSAssginment.Code.AuthenticationLayer.Security;
-//
-
+package com.LMSAssginment.Code.Security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -82,7 +31,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/signup").permitAll()
-                        .requestMatchers("/performanceTracking/**").permitAll()
+                        .requestMatchers("/performanceTracking/**").hasRole("INSTRUCTOR")
                         .requestMatchers("/createUser/**").hasRole("ADMIN")
                         .requestMatchers("/{course_id}/createAssessment").hasRole("INSTRUCTOR")
                         .requestMatchers("/{Course_id}/{assessment_id}/displayAssessment").permitAll()
@@ -97,6 +46,12 @@ public class SecurityConfiguration {
                         .requestMatchers("/{userID}/notifications/{notification_id}").permitAll()
                         .requestMatchers("/{course_id}/createNotification/allEnrolled").hasRole("INSTRUCTOR")
                         .requestMatchers("/{course_id}/createNotification/specific").hasRole("INSTRUCTOR")
+                        .requestMatchers("/course/update").hasRole("INSTRUCTOR")
+                        .requestMatchers("/course/delete/**").hasRole("INSTRUCTOR")
+                        .requestMatchers("/course/addLesson").hasRole("INSTRUCTOR")
+                        .requestMatchers("/drop/**").hasRole("INSTRUCTOR")
+                        .requestMatchers("/enroll/**").hasRole("STUDENT")
+                        .requestMatchers("enroll/view/**").hasRole("INSTRUCTOR")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

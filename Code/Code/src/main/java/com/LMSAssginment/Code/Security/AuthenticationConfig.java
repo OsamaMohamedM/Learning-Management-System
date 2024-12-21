@@ -1,5 +1,5 @@
 
-package com.LMSAssginment.Code.AuthenticationLayer.Security;
+package com.LMSAssginment.Code.Security;
 
 import com.LMSAssginment.Code.DateLayers.Model.User;
 import com.LMSAssginment.Code.DateLayers.Repos.UserRepo;

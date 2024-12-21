@@ -1,4 +1,4 @@
-package com.LMSAssginment.Code.AuthenticationLayer.Security;
+package com.LMSAssginment.Code.Security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

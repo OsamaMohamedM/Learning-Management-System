@@ -1,9 +1,10 @@
-package com.LMSAssginment.Code.AuthenticationLayer.Login;
+package com.LMSAssginment.Code.BusinessLayers.Services;
 
+import com.LMSAssginment.Code.DateLayers.Model.UserLoginDto;
 import com.LMSAssginment.Code.DateLayers.Model.User;
 import com.LMSAssginment.Code.DateLayers.Repos.UserRepo;
-import com.LMSAssginment.Code.AuthenticationLayer.Security.JwtService;
-import com.LMSAssginment.Code.AuthenticationLayer.Security.SecuredUser;
+import com.LMSAssginment.Code.Security.JwtService;
+import com.LMSAssginment.Code.Security.SecuredUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;

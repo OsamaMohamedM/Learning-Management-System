@@ -1,4 +1,4 @@
-package com.LMSAssginment.Code.AuthenticationLayer.signUp;
+package com.LMSAssginment.Code.DateLayers.Model;
 
 import java.util.Date;
 
