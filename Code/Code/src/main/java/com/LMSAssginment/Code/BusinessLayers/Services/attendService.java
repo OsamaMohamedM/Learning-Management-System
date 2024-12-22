@@ -5,11 +5,13 @@ import com.LMSAssginment.Code.DateLayers.Model.Course.Lesson;
 import com.LMSAssginment.Code.DateLayers.Model.Course.LessonAttendance;
 import com.LMSAssginment.Code.DateLayers.Model.Course.LessonAttendanceId;
 import com.LMSAssginment.Code.DateLayers.Model.Student.Student;
+import com.LMSAssginment.Code.DateLayers.Model.Student.StudentDTO;
 import com.LMSAssginment.Code.DateLayers.Model.User;
 import com.LMSAssginment.Code.DateLayers.Repos.*;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class attendService {
@@ -74,9 +76,9 @@ public class attendService {
         return response;
     }
 
-    public List<Student> getStudentsByLessonId(int lessonId) {
-        // Retrieve all attendance records for the given lessonId
-        List<LessonAttendance> attendanceList = lessonAttendanceRepository.findByLessonId(lessonId);
+    public List<StudentDTO> getAttendanceByCourseAndLesson(int courseId, int lessonId) {
+        // Retrieve attendance records for the specified course and lesson
+        List<LessonAttendance> attendanceList = lessonAttendanceRepository.findByCourseIdAndLessonId(courseId, lessonId);
 
         // Extract the list of students who attended the lesson
         List<Student> students = new ArrayList<>();
@@ -84,7 +86,16 @@ public class attendService {
             students.add(attendance.getStudent());
         }
 
-        return students;
+        return students.stream()
+                .map(student -> new StudentDTO(
+                        student.getId(),
+                        student.getName(),
+                        student.getEmail(),
+                        student.getGender(),
+                        student.getBirthDate(),
+                        student.getGpa()
+                ))
+                .collect(Collectors.toList());
     }
 
 }
