@@ -35,7 +35,7 @@ class StudentAssessmentResponseServiceTest {
     private StudentAssessmentRepo studentAssessmentRepo;
 
     @Autowired
-    private AssessmentGraderepo assessmentGraderepo;
+    private AssessmentGradesRepo assessmentGraderepo;
 
     @Autowired
     private QuestionsRepo questionsRepo;
@@ -175,6 +175,7 @@ class StudentAssessmentResponseServiceTest {
     @Test
     // kml enta IDK what to do hena and really tired :(((
     void giveManualFeedback() {
+        //
         Map<String, String> instructorFeedback = new HashMap<>();
         Integer tmp= student.getId();
         instructorFeedback.put("student_id", tmp.toString());

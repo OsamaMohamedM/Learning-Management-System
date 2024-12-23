@@ -14,6 +14,7 @@ import com.LMSAssginment.Code.DateLayers.Model.Student.StudentAssessmentResponse
 import com.LMSAssginment.Code.DateLayers.Repos.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,7 +28,7 @@ public class StudentAssessmentResponseService {
     @Autowired
     StudentAssessmentRepo studentAssessmentRepo;
     @Autowired
-    AssessmentGraderepo assessmentGraderepo;
+    AssessmentGradesRepo assessmentGraderepo;
 
 
     @Autowired
@@ -146,8 +147,8 @@ public class StudentAssessmentResponseService {
         return result;
     }
 
-
-    @Transactional
+@Modifying
+@Transactional
     public AssessmentGrade giveManualFeedback(int assessment_id, int course_id, Map<String, String> instructorFeedback){
         int student_id = Integer.parseInt(instructorFeedback.get("student_id"));
         int grade = Integer.parseInt(instructorFeedback.get("grade"));
