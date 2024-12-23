@@ -1,8 +1,6 @@
 package com.LMSAssginment.Code.BusinessLayers.Services;
 
-import com.LMSAssginment.Code.BusinessLayers.Services.EmailService;
 import com.LMSAssginment.Code.DateLayers.Model.Course.Course;
-import com.LMSAssginment.Code.DateLayers.Model.Instructor.Instructor;
 import com.LMSAssginment.Code.DateLayers.Model.Notification;
 import com.LMSAssginment.Code.DateLayers.Model.User;
 import com.LMSAssginment.Code.DateLayers.Repos.InstructorCourseRepo;
@@ -12,11 +10,8 @@ import com.LMSAssginment.Code.DateLayers.Repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import static org.antlr.v4.runtime.tree.xpath.XPath.findAll;
 
 @Service
 public class NotificationService {
@@ -47,15 +42,17 @@ public class NotificationService {
         notification.setNotificationContent("Student with ID: " + studentId + " just enrolled in your course: " + course.getName());
 
         if(instructor!=null)
-        emailService.sendEmail(instructor.getEmail() , "Enrrol" , "Student with ID: " + studentId + " just enrolled in your course: " + course.getName());
+        emailService.sendEmail(instructor.getEmail() , "Enrol" , "Student with ID: " + studentId + " just enrolled in your course: " + course.getName());
         notificationRepository.save(notification);
+
+
 
     }
 
 
 
     // specifc
-    public String createNotificationforAlist(Map<String,Object> ob, int courseId) {
+    public String createNotificationForAlliStudents(Map<String,Object> ob, int courseId) {
         Course course = courseRepo.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course not found"));
         List<Integer> student_ids=(List<Integer>) ob.get("Students");
@@ -70,6 +67,7 @@ public class NotificationService {
             notification.setnotificationStatue(false);
             notification.setUser(user);
             notificationRepository.save(notification);
+            emailService.sendEmail(user.getEmail() , "Attention" , notificationData);
         }
 
         return "done. but only enrolled students got that notification";
@@ -90,6 +88,7 @@ public class NotificationService {
             notification.setUser(student);
 
             notificationRepository.save(notification);
+            emailService.sendEmail(student.getEmail() , "Attention" , notificationData);
         }
 
         return "all enrolled students just recieved that notification";

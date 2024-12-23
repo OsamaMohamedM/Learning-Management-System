@@ -29,7 +29,7 @@ public class SendNotificationController {
     @PostMapping("/specific")
     public String createNotification(@RequestBody Map<String,Object> ob, @PathVariable int courseId) {
         // Save notification and return a response
-        return notificationService.createNotificationforAlist(ob,courseId);
+        return notificationService.createNotificationForAlliStudents(ob,courseId);
     }
 
     /*

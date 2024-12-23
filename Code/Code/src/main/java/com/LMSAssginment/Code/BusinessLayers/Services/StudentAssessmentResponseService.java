@@ -4,7 +4,6 @@ import com.LMSAssginment.Code.DateLayers.Model.Answers.FileAnswer;
 import com.LMSAssginment.Code.DateLayers.Model.Course.Assessment;
 import com.LMSAssginment.Code.DateLayers.Model.Course.AssessmentGrade;
 import com.LMSAssginment.Code.DateLayers.Model.Course.Course;
-import com.LMSAssginment.Code.DateLayers.Model.Instructor.Instructor;
 import com.LMSAssginment.Code.DateLayers.Model.Questions.McqQuestion;
 import com.LMSAssginment.Code.DateLayers.Model.Questions.Question;
 import com.LMSAssginment.Code.DateLayers.Model.Questions.ShortAnswerQuestion;
@@ -172,7 +171,7 @@ public class StudentAssessmentResponseService {
         sth.add(student_id);
         mp.put("Students", sth);
 
-        notificationService.createNotificationforAlist(mp, course_id);
+        notificationService.createNotificationForAlliStudents(mp, course_id);
 
     }
 

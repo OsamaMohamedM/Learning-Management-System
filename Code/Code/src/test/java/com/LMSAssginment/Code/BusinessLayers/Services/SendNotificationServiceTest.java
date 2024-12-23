@@ -112,7 +112,7 @@ class SendNotificationServiceTest {
         int courseId = course.getId();
         String notificationContent = "Test notification";
 
-        String result = notificationService.createNotificationforAlist(Map.of(
+        String result = notificationService.createNotificationForAlliStudents(Map.of(
                 "Students", new ArrayList<>(List.of(404,students.get(0), students.get(3), students.get(6))),
                 "notificationContent", notificationContent
         ), courseId);

@@ -21,7 +21,6 @@ public class EnrollService {
     @Autowired
     private final InstructorCourseRepo courseRepository;
 
-
     @Autowired
     private NotificationService notificationService;
 
@@ -62,7 +61,7 @@ public class EnrollService {
                     List<Integer> sth=new ArrayList<>();
                     sth.add(studentId);
                     mp.put("Students",sth);
-                    notificationService.createNotificationforAlist(mp,courseId);
+                    notificationService.createNotificationForAlliStudents(mp,courseId);
 
                 }
             }

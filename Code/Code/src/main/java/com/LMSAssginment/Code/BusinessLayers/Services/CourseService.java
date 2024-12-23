@@ -55,7 +55,7 @@ public class CourseService {
                     Map<String, Object> mp = new HashMap<>();
                     mp.put("notificationContent","New Course added !! Check it out: "+course.getName());
                     mp.put("Students",pass);
-                    notificationService.createNotificationforAlist(mp,course.getId());
+                    notificationService.createNotificationForAlliStudents(mp,course.getId());
                 }
             }
             else System.out.println("Invalid data");
