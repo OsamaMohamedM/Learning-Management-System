@@ -29,12 +29,12 @@ public class NotificationService {
 
     @Autowired
     private StudentCourseRepo studentCourseRepo;
-    private EmailService emailService;
-    private final NotificationRepo notificationRepository;
 
-    public NotificationService(NotificationRepo notificationRepo) {
-        this.notificationRepository = notificationRepo;
-    }
+    @Autowired
+    private NotificationRepo notificationRepository;
+    private EmailService emailService;
+
+
 
     public void notifyInstructor(int studentId, Course course) {
         User instructor = userRepo.findById(course.getInstructor().getId()).orElse(null);

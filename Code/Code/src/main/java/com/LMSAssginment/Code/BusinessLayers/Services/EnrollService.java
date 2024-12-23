@@ -1,6 +1,8 @@
 package  com.LMSAssginment.Code.BusinessLayers.Services;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.LMSAssginment.Code.DateLayers.Model.Course.Course;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,9 @@ public class EnrollService {
     @Autowired
     private final InstructorCourseRepo courseRepository;
 
+
     @Autowired
-    private final NotificationService notificationService;
+    private NotificationService notificationService;
 
     public EnrollService(StudentCourseRepo repository, InstructorCourseRepo courseRepository,NotificationService notificationService) {
         this.repository = repository;
@@ -50,8 +53,16 @@ public class EnrollService {
                     studentCourse.setEnrollmentDate(java.time.LocalDateTime.now());
                     repository.save(studentCourse);
 
-
+                    // for instructor:
                     notificationService.notifyInstructor(studentId,crs);
+
+                    // for that one student :D
+                    Map<String, Object> mp = new HashMap<>();
+                    mp.put("notificationContent","Enrollment was successful: "+crs.getName());
+                    List<Integer> sth=new ArrayList<>();
+                    sth.add(studentId);
+                    mp.put("Students",sth);
+                    notificationService.createNotificationforAlist(mp,courseId);
 
                 }
             }

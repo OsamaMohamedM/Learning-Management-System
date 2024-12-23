@@ -1,9 +1,9 @@
 
 package com.LMSAssginment.Code.BusinessLayers.Services;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
+import com.LMSAssginment.Code.DateLayers.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.LMSAssginment.Code.DateLayers.Model.Course.Course;
@@ -19,19 +19,29 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class CourseService {
     private final InstructorCourseRepo courseRepository;
-    private final UserRepo instructorCourseRepo;
+    private final UserRepo userRepo;
     private final LessonRepo lessonRepo;
-    public CourseService(InstructorCourseRepo courseRepository, UserRepo instructorCourseRepo, LessonRepo lessonRepo) {
+    private NotificationService notificationService;
+    public CourseService(InstructorCourseRepo courseRepository, UserRepo instructorCourseRepo, LessonRepo lessonRepo,NotificationService notificationService) {
         this.courseRepository = courseRepository;
-        this.instructorCourseRepo = instructorCourseRepo;
+        this.userRepo = instructorCourseRepo;
         this.lessonRepo = lessonRepo;
+        this.notificationService=notificationService;
     }
 
     public void addCourse(@Autowired Course course,@Autowired int instructorId) {
         try{
             if (instructorId != 0) {
-                if (instructorCourseRepo.findById(instructorId) != null) {
+                if (userRepo.findById(instructorId) != null) {
                     courseRepository.save(course);
+                    // notify everyone
+                    List<User> everyone=userRepo.findAll();
+                    List<Integer> pass=new ArrayList<>();
+                    for(User us: everyone) pass.add(us.getId());
+                    Map<String, Object> mp = new HashMap<>();
+                    mp.put("notificationContent","New Course added !! Check it out: "+course.getName());
+                    mp.put("Students",pass);
+                    notificationService.createNotificationforAlist(mp,course.getId());
                 }
             }
             else System.out.println("Instructor not found");
@@ -52,6 +62,10 @@ public class CourseService {
             if (file != null && !file.isEmpty()) {
                 lesson.setContentFile(file.getBytes());
                 lesson.setMediaType(file.getContentType());
+                // notify all enrolled that the media has been uploaded
+                Course course=lesson.getCourse();
+                notificationService.createNotificationforALL("New Media has been Uploaded for the course: "+course.getName(),course.getId());
+
             } else {
                 throw new IllegalArgumentException("Media file is required.");
             }
@@ -93,6 +107,11 @@ public class CourseService {
             course.addLessons(lesson);
             lessonRepo.save(lesson);
             courseRepository.save(course);
+
+            // notify all enrolled that a new lesson has been added :D
+            notificationService.createNotificationforALL("New Lesson has been added for the course: "+course.getName(),course.getId());
+
+
         } else {
             throw new EntityNotFoundException("Course with ID " + lesson.getCourse().getId() + " not found.");
         }
@@ -103,8 +122,11 @@ public class CourseService {
             for(Course c : courseRepository.findAll()) {
                 if(c.getId() == course.getId()) {
                     System.out.println("Found");
-                    if(course.getName() != null)
+                    if(course.getName() != null) {
                         c.setName(course.getName());
+//                        notificationService.createNotificationforALL("Course name has been changed to: "+c.getName(),course.getId());
+                    }
+                    // mn a2y fakes 3la kol kbyra w so8ya notification for all , msh lazem
                     if(course.getMaxNumberOfStudent() != 0)
                         c.setMaxNumberOfStudent(course.getMaxNumberOfStudent());
                     if(course.getDescription() != null)
@@ -137,6 +159,7 @@ public class CourseService {
         try{
             for(Course c : courseRepository.findAll()) {
                 if(c.getId() == id) {
+                    notificationService.createNotificationforALL("this course has been deleted :("+c.getName(),c.getId());
                     courseRepository.delete(c);
                 }
             }

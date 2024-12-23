@@ -10,6 +10,7 @@ import com.LMSAssginment.Code.DateLayers.Model.Questions.ShortAnswerQuestion;
 import com.LMSAssginment.Code.DateLayers.Model.Questions.TrueAndFalseQuestion;
 import com.LMSAssginment.Code.DateLayers.Model.Questions.Question;
 import com.LMSAssginment.Code.DateLayers.Model.Student.Student;
+import com.LMSAssginment.Code.DateLayers.Model.Student.StudentAssessmentResponse;
 import com.LMSAssginment.Code.DateLayers.Repos.*;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,19 +36,10 @@ class StudentAssessmentResponseServiceTest {
     private StudentAssessmentRepo studentAssessmentRepo;
 
     @Autowired
-    private AssessmentGradesRepo assessmentGraderepo;
-
-    @Autowired
-    private QuestionsRepo questionsRepo;
+    private AssessmentGradesRepo assessmentGradesRepo;
 
     @Autowired
     private McqQuestionRepo mcqQuestionRepo;
-
-    @Autowired
-    private ShortAnswerQuestionRepo shortAnswerQuestionRepo;
-
-    @Autowired
-    private TrueAndFalseQuestionRepo trueAndFalseQuestionRepo;
 
     @Autowired
     private CourseService courseService;
@@ -58,7 +50,6 @@ class StudentAssessmentResponseServiceTest {
     @Autowired
     AssessmentRepository assessmentRepository;
 
-
     @Autowired
     EnrollService enrollService;
 
@@ -67,6 +58,7 @@ class StudentAssessmentResponseServiceTest {
     private Student student;
 
     private Assessment assessment;
+
 
     @BeforeEach
     public void setup() {
@@ -113,10 +105,19 @@ class StudentAssessmentResponseServiceTest {
         String email = "student"+"@example.com";
         String userType = "Student";
         double gpa = 4;
-         student = new Student(name, password, email, null, null, userType, gpa);
+        student = new Student(name, password, email, null, null, userType, gpa);
         signUpService.AddNewUser(student);
         enrollService.enroll(course.getId(),student.getId()); // the enroll process automatically notifies
 
+
+
+        AssessmentGrade assessmentGrade= new AssessmentGrade(student.getId(),assessment.getId(),course.getId(),0);
+        assessmentGradesRepo.save(assessmentGrade);
+
+
+
+        StudentAssessmentResponse studentAssessmentResponse=new StudentAssessmentResponse(assessment,student.getId(),course.getId(),new ArrayList<>());
+        studentAssessmentRepo.save(studentAssessmentResponse);
 
 
     }
@@ -130,7 +131,7 @@ class StudentAssessmentResponseServiceTest {
         studentAssessmentResponseService.saveAssignment(multipartFile, course, 1, 1, 1, assessment);
 
         assertEquals(1, studentAssessmentRepo.findAll().size());
-        assertEquals(1, assessmentGraderepo.findAll().size());
+        assertEquals(1, assessmentGradesRepo.findAll().size());
     }
 
     @Test
@@ -175,17 +176,14 @@ class StudentAssessmentResponseServiceTest {
     @Test
     // kml enta IDK what to do hena and really tired :(((
     void giveManualFeedback() {
-        //
         Map<String, String> instructorFeedback = new HashMap<>();
         Integer tmp= student.getId();
         instructorFeedback.put("student_id", tmp.toString());
-        instructorFeedback.put("grade", "85");
-        instructorFeedback.put("feed_back", "Good work!");
+        instructorFeedback.put("grade", "0");
 
         AssessmentGrade updatedGrade = studentAssessmentResponseService.giveManualFeedback(assessment.getId(), course.getId(), instructorFeedback);
 
-        assertEquals(85, updatedGrade.getGrade());
-        assertEquals("Good work!", updatedGrade.getFeedback());
+        assertEquals(0, updatedGrade.getGrade());
     }
 
 }

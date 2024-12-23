@@ -1,15 +1,14 @@
 package com.LMSAssginment.Code.BusinessLayers.Services;
 
-import ch.qos.logback.core.util.StringUtil;
 import com.LMSAssginment.Code.DateLayers.Model.Answers.FileAnswer;
 import com.LMSAssginment.Code.DateLayers.Model.Course.Assessment;
 import com.LMSAssginment.Code.DateLayers.Model.Course.AssessmentGrade;
 import com.LMSAssginment.Code.DateLayers.Model.Course.Course;
+import com.LMSAssginment.Code.DateLayers.Model.Instructor.Instructor;
 import com.LMSAssginment.Code.DateLayers.Model.Questions.McqQuestion;
 import com.LMSAssginment.Code.DateLayers.Model.Questions.Question;
 import com.LMSAssginment.Code.DateLayers.Model.Questions.ShortAnswerQuestion;
 import com.LMSAssginment.Code.DateLayers.Model.Questions.TrueAndFalseQuestion;
-import com.LMSAssginment.Code.DateLayers.Model.Student.Student;
 import com.LMSAssginment.Code.DateLayers.Model.Student.StudentAssessmentResponse;
 import com.LMSAssginment.Code.DateLayers.Repos.*;
 import jakarta.transaction.Transactional;
@@ -20,19 +19,24 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class StudentAssessmentResponseService {
+
     @Autowired
     StudentAssessmentRepo studentAssessmentRepo;
-    @Autowired
-    AssessmentGradesRepo assessmentGraderepo;
-
 
     @Autowired
-    private QuestionsRepo questionsRepo;
+    AssessmentGradesRepo assessmentGradesRepo;
+    @Autowired
+    InstructorCourseRepo instructorCourseRepo;
+
+    @Autowired
+    private NotificationService notificationService;
+
 
     @Autowired
     private McqQuestionRepo mcqQuestionRepo;
@@ -60,7 +64,7 @@ public class StudentAssessmentResponseService {
     }
 
     public AssessmentGrade saveAssessmentGrade(AssessmentGrade assessmentGrade) {
-        return assessmentGraderepo.save(assessmentGrade);
+        return assessmentGradesRepo.save(assessmentGrade);
     }
 
     public void saveAssignment(MultipartFile multipartFile, Course course, int user_id, int assessment_id, int course_id, Assessment assessment) throws Exception {
@@ -72,7 +76,7 @@ public class StudentAssessmentResponseService {
         fileAnswers.add(fileAnswer);
         StudentAssessmentResponse studentAssessmentResponse = new StudentAssessmentResponse(assessment, user_id, course_id, fileAnswers);
         studentAssessmentRepo.save(studentAssessmentResponse);
-        assessmentGraderepo.save(assessmentGrade);
+        assessmentGradesRepo.save(assessmentGrade);
 
     }
 
@@ -152,8 +156,26 @@ public class StudentAssessmentResponseService {
     public AssessmentGrade giveManualFeedback(int assessment_id, int course_id, Map<String, String> instructorFeedback){
         int student_id = Integer.parseInt(instructorFeedback.get("student_id"));
         int grade = Integer.parseInt(instructorFeedback.get("grade"));
-        String feedback = instructorFeedback.get("feed_back");
-        assessmentGraderepo.updateAssessmentGrade(student_id, course_id, assessment_id, grade, feedback);
-        return assessmentGraderepo.getAssessmentGrade(student_id, course_id, assessment_id);
+        String feed_back = instructorFeedback.get("feed_back");
+  assessmentGradesRepo.updateAssessmentGrade(student_id, course_id, assessment_id, grade, feed_back);
+         AssessmentGrade x=assessmentGradesRepo.getAssessmentGrade(student_id, course_id, assessment_id);
+    Map<String, Object> mp = new HashMap<>();
+    Course course= instructorCourseRepo.findById(course_id).orElse(null);
+    if(course!=null) {
+        mp.put("notificationContent", "" +
+                "Feedback: " + feed_back
+                + "\n" +
+                "Grade: " + grade +
+                "\n" + course.getName());
+
+        List<Integer> sth = new ArrayList<>();
+        sth.add(student_id);
+        mp.put("Students", sth);
+
+        notificationService.createNotificationforAlist(mp, course_id);
+
+    }
+
+    return x;
     }
 }
