@@ -18,8 +18,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class CourseService {
+    @Autowired
     private final InstructorCourseRepo courseRepository;
+    @Autowired
     private final UserRepo userRepo;
+    @Autowired
     private final LessonRepo lessonRepo;
     private NotificationService notificationService;
     public CourseService(InstructorCourseRepo courseRepository, UserRepo instructorCourseRepo, LessonRepo lessonRepo,NotificationService notificationService) {
@@ -136,8 +139,8 @@ public class CourseService {
                     System.out.println("Found");
                     if(course.getName() != null) {
                         c.setName(course.getName());
-//                        notificationService.createNotificationforALL("Course name has been changed to: "+c.getName(),course.getId());
                     }
+                    notificationService.createNotificationforALL("Course name has been changed to: "+c.getName(),course.getId());
                     // mn a2y fakes 3la kol kbyra w so8ya notification for all , msh lazem
                     if(course.getMaxNumberOfStudent() != 0)
                         c.setMaxNumberOfStudent(course.getMaxNumberOfStudent());

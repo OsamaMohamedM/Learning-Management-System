@@ -13,10 +13,13 @@ public class MailConfig {
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
         mailSender.setUsername("om983554@gmail.com");
-        mailSender.setPassword("cdse auww hzqv ndeg");
-        mailSender.setProtocol("smtp");
+        mailSender.setPassword("nswm bvxz fovh odsf");
 
-
+        mailSender.getJavaMailProperties().put("mail.smtp.auth", "true");
+        mailSender.getJavaMailProperties().put("mail.smtp.starttls.enable", "true");
+        mailSender.getJavaMailProperties().put("mail.smtp.starttls.required", "true");
+        mailSender.getJavaMailProperties().put("mail.smtp.ssl.trust", "smtp.gmail.com");
         return mailSender;
+
     }
 }

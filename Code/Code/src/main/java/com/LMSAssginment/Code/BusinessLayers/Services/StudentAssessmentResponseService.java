@@ -171,7 +171,7 @@ public class StudentAssessmentResponseService {
         sth.add(student_id);
         mp.put("Students", sth);
 
-        notificationService.createNotificationForAlliStudents(mp, course_id);
+//        notificationService.createNotificationForAlliStudents(mp, course_id);
 
     }
 

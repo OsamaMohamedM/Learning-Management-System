@@ -26,7 +26,8 @@ public interface NotificationRepo extends JpaRepository<Notification, Integer> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE Notification a SET a.read = true WHERE a.id = :NOTid")
+
+    @Query("UPDATE Notification a SET a.read = true WHERE a.id = :NOTid ")
     void changeToRead(@Param("NOTid") int NOTid);
 
 

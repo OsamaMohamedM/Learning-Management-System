@@ -31,6 +31,8 @@ class AssessmentServicesTest {
     @Autowired
     private AssessmentServices assessmentServices;
 
+
+
     @Autowired
     private SignUpService signUpService;
 
@@ -39,6 +41,9 @@ class AssessmentServicesTest {
 
     @Autowired
     private AssessmentRepository assessmentRepository;
+
+    @Autowired
+    private StudentAssessmentRepo studentAssessmentRepo;
 
 
     @Autowired
@@ -60,6 +65,7 @@ class AssessmentServicesTest {
 
     @BeforeEach
     void setUp() {
+        deleteQuestionFromDatabase();
         instructor = new Instructor();
         instructor.setName("TA");
         instructor.setUserType("Instructor");
@@ -134,6 +140,15 @@ class AssessmentServicesTest {
         assertEquals(1,assessments.size());
         assertEquals(tmp,assessments.get(0));
 
+    }
+
+    void deleteQuestionFromDatabase(){
+        studentAssessmentRepo.deleteAll();
+        assessmentRepository.deleteAll();
+        questionsRepo.deleteAll();
+        mcqQuestionRepo.deleteAll();
+        shortAnswerQuestionRepo.deleteAll();
+        trueAndFalseQuestionRepo.deleteAll();
     }
 
 }

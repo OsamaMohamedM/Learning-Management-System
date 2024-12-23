@@ -5,6 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 
+import com.LMSAssginment.Code.DateLayers.Model.Notification;
+import com.LMSAssginment.Code.DateLayers.Repos.NotificationRepo;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.OneToMany;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -24,6 +28,11 @@ import com.LMSAssginment.Code.DateLayers.Repos.UserRepo;
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestEnrollment {
+
+    @Autowired
+    private NotificationRepo notificationRepo;
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Notification> notifications;
 
     @Autowired
     private EnrollService enrollService;
@@ -54,13 +63,14 @@ public class TestEnrollment {
     public void setup() {
         student = new Student();
         student.setName("student");
-        student.setUserType("Student");
+        student.setUserType("STUDENT");
         student.setPassword("password");
-        student.setEmail("s5@gmail.com");
+        student.setEmail("s5@" +
+                "gmail.com");
         signUpService.AddNewUser(student);
         instructor = new Instructor();
         instructor.setName("TA");
-        instructor.setUserType("Instructor");
+        instructor.setUserType("INSTRUCTOR");
         instructor.setPassword("password");
         instructor.setEmail("i1@gmail.com");
         signUpService.AddNewUser(instructor);
@@ -73,6 +83,7 @@ public class TestEnrollment {
         instructor = (Instructor) instructorCourseRepo.findByEmail("i1@gmail.com").get();
         int instructorId = instructor.getId();
         courseService.addCourse(course, instructorId);
+        course = (Course) courseRepository.getCoursesByInstructorId(instructorId);
     }
 
     @Test
@@ -156,6 +167,7 @@ public class TestEnrollment {
 
     @AfterAll
     public void cleanup() {
+        notificationRepo.deleteAll();
         studentRepo.delete(student);
         instructorCourseRepo.deleteById(instructor.getId());
         courseService.deleteCourse(course.getId());

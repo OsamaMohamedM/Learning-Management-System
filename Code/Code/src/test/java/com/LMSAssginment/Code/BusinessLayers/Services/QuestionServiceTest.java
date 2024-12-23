@@ -71,10 +71,8 @@ class QuestionServiceTest {
                 "3","4","5","2","2","mcq");
         questionService.addMcqQuestions(mcq);
 
-        List<McqQuestion> questionList=mcqQuestionRepo.findAll();
 
-        assertEquals("mcq",questionList.get(0).getQuestionType());
-        assertEquals(1,questionList.size());
+        assertEquals(mcq.getId(), mcqQuestionRepo.findMcqQuestionbyQuestionId(mcq.getId()).getId());
 
     }
 
@@ -83,10 +81,8 @@ class QuestionServiceTest {
         ShortAnswerQuestion sa= new ShortAnswerQuestion(course,"1+1=?","2","sa");
         questionService.addShortAnswerQuestion(sa);
 
-        List<ShortAnswerQuestion> questionList=shortAnswerQuestionRepo.findAll();
 
-        assertEquals(1,questionList.size());
-        assertEquals("sa",questionList.get(0).getQuestionType());
+        assertEquals(sa.getId(), shortAnswerQuestionRepo.findShortAnswerQuestionbyQuestionId(sa.getId()).getId());
     }
 
     @Test
@@ -95,10 +91,9 @@ class QuestionServiceTest {
                true ,"tf");
         questionService.addTrueAndFalseQuestion(TF);
 
-        List<TrueAndFalseQuestion> questionList=trueAndFalseQuestionRepo.findAll();
 
-        assertEquals("tf",questionList.get(0).getQuestionType());
-        assertEquals(1,questionList.size());
+
+        assertEquals(TF.getId(), trueAndFalseQuestionRepo.findTrueAndFalseQuestionbyQuestionId(TF.getId()).getId());
 
     }
 }

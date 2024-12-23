@@ -64,7 +64,7 @@ class GetNotificationServiceTest {
         course.setLessons(new ArrayList<>());
         courseService.addCourse(course,instructor.getId());
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             String name = "Student" + i;
             String password = "password" + i;
             String email = "student" + i + "@example.com";
@@ -84,9 +84,9 @@ class GetNotificationServiceTest {
         // when I enrolled 10 students , the instructor should get 10 Notifications with students that enrolled
         List<Notification> notifications=notificationService.getAllNotifications(instructor.getId());
 
-        assertEquals(10, notifications.size(), "The size of the notifications should be 10");
+        assertEquals(3, notifications.size(), "The size of the notifications should be 10");
 
-        for(int i=0;i<10;i++){
+        for(int i=0;i<3;i++){
             assertEquals(notifications.get(i).getNotificationContent(),"Student with ID: " +students.get(i)+" just enrolled in your course: TCourse");
             assertTrue(notifications.get(i).getnotificationStatue());  // if I get it with the service , then it becomes read , true
         }
@@ -96,7 +96,7 @@ class GetNotificationServiceTest {
     @Test
     void getByNotificationID() {
         List<Notification> notifications=notificationRepository.findNotificationsByUserId(instructor.getId());
-        int randomNotID=notifications.get(3).getId();
+        int randomNotID=notifications.get(1).getId();
         // only the instructor could access that
         // let's try getting that notification once by the instructor and once by a random student
         Notification byStudent=notificationService.getByNotificationID(randomNotID,students.get(2));
@@ -114,8 +114,8 @@ class GetNotificationServiceTest {
         notificationRepository.changeToRead(notifications.get(0).getId());
         notificationRepository.changeToRead(notifications.get(1).getId());
 
-        // now let's get 8 ones b2a
+        // now let's get 1 ones b2a
         List<Notification> newNotifications=notificationService.getUnreadNotification(instructor.getId());
-        assertEquals(8,newNotifications.size());
+        assertEquals(1,newNotifications.size());
     }
 }

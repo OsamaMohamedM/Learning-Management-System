@@ -34,7 +34,7 @@ public class EnrollService {
     public void enroll(int courseId, int studentId) {
         try{
             if (studentId != 0) {
-                //????//???? why not  just query?
+
                 if (studentRepo.findById(studentId) != null) {
                     List<Student> students = studentRepo.findAllStudents();
                     Student student = new Student();

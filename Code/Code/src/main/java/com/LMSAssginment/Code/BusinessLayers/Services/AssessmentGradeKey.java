@@ -1,4 +1,4 @@
-package com.LMSAssginment.Code.Services;
+package com.LMSAssginment.Code.BusinessLayers.Services;
 
 import java.io.Serializable;
 import java.util.Objects;

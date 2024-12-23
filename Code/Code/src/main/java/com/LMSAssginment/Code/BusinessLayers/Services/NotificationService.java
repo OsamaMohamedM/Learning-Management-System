@@ -41,9 +41,12 @@ public class NotificationService {
         notification.setCourse(course);
         notification.setNotificationContent("Student with ID: " + studentId + " just enrolled in your course: " + course.getName());
 
-        if(instructor!=null)
-        emailService.sendEmail(instructor.getEmail() , "Enrol" , "Student with ID: " + studentId + " just enrolled in your course: " + course.getName());
-        notificationRepository.save(notification);
+        if(instructor!=null){
+            notificationRepository.save(notification);
+
+            emailService.sendEmail(instructor.getEmail(), "Enrol" , "Student with ID: " + studentId + " just enrolled in your course: " + course.getName());
+        }
+
 
 
 
