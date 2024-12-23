@@ -258,23 +258,6 @@ Submit as Form-Data with file content.
 - **Spring Web**
 - **Spring Data JPA**
 
----
 
-## Updates
-
-### Business Layer
-- **Controllers:**
-  - `AttendController`
-  - `ProfileManagementController`
-- **Services:**
-  - `AttendService`
-  - `ProfileManagementService`
-
-### Data Layer
-- **Repository:**
-  - Added `findByLessonId` function to `LessonAttendanceRepository`.
-
-### Models
-- Updated to align with added functionalities.
 
 ---
