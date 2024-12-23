@@ -2,6 +2,7 @@ package com.LMSAssginment.Code.BusinessLayers.Controllers;
 
 import com.LMSAssginment.Code.BusinessLayers.Services.attendService;
 import com.LMSAssginment.Code.DateLayers.Model.Student.Student;
+import com.LMSAssginment.Code.DateLayers.Model.Student.StudentDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,11 +35,14 @@ public class attendController {
         }
     }
 
-    @GetMapping("/students/{lessonId}")
-    public List<Student> getStudentsByLessonId(@PathVariable int lessonId) {
-        return lessonAttendanceService.getStudentsByLessonId(lessonId);
+    @GetMapping("/course/{courseId}/lesson/{lessonId}")
+    public ResponseEntity<List<StudentDTO>> getAttendanceByCourseAndLesson(
+            @PathVariable int courseId,
+            @PathVariable int lessonId
+    ) {
+        List<StudentDTO> students = lessonAttendanceService.getAttendanceByCourseAndLesson(courseId, lessonId);
+        return ResponseEntity.ok(students);
     }
 
 
 }
-

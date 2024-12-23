@@ -32,6 +32,8 @@ public class NotificationService {
 
     @Autowired
     private NotificationRepo notificationRepository;
+
+    @Autowired
     private EmailService emailService;
 
 

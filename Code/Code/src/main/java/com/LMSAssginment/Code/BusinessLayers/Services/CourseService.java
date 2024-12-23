@@ -31,7 +31,21 @@ public class CourseService {
 
     public void addCourse(@Autowired Course course,@Autowired int instructorId) {
         try{
-            if (instructorId != 0) {
+            if (instructorId != 0 && course != null) {
+                boolean f = false;
+                String name = course.getName();
+                List<Course> courses = courseRepository.findAll();
+                for (Course c : courses) {
+                    if (c.getName().equals(name)) {
+                        System.out.println("Course already exists");
+                        f = true;
+                        break;
+                    }
+                }
+                if (f) {
+                    System.out.println("Course already exists");
+                    return;
+                }
                 if (userRepo.findById(instructorId) != null) {
                     courseRepository.save(course);
                     // notify everyone
@@ -44,13 +58,11 @@ public class CourseService {
                     notificationService.createNotificationforAlist(mp,course.getId());
                 }
             }
-            else System.out.println("Instructor not found");
+            else System.out.println("Invalid data");
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-
-
 
     public void uploadMedia(int lessonId, MultipartFile file) throws IOException {
         // تحقق من وجود الدرس
@@ -85,11 +97,11 @@ public class CourseService {
         for (Course course : courses) {
             Instructor instructor = course.getInstructor();  // Get Instructor for the Course
             CourseDTO courseDTO = new CourseDTO(
-                course.getId(),
-                course.getName(),
-                course.getMaxNumberOfStudent(),
-                course.getDescription(),
-                instructor.getName() // Add only the instructor's ID
+                    course.getId(),
+                    course.getName(),
+                    course.getMaxNumberOfStudent(),
+                    course.getDescription(),
+                    instructor.getName() // Add only the instructor's ID
             );
             courseDTOs.add(courseDTO);
         }
