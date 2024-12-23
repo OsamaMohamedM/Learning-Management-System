@@ -43,8 +43,9 @@ public class Course {
         this.instructor = instructor;
     }
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course" ,cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Notification> notifications;
+
 
     @ManyToOne
     @JoinColumn(name = "instructor_id", nullable = false)
