@@ -1,4 +1,3 @@
-
 # Project Overview and API Documentation
 
 This project is built using **Spring Boot 3.4.0**, **Java 23**, and **Maven**. Below is a detailed breakdown of the system functionality and API endpoints to serve as a comprehensive guide for developers.
@@ -18,6 +17,7 @@ This project is built using **Spring Boot 3.4.0**, **Java 23**, and **Maven**. B
   - [Notifications](#notifications)
   - [Assessment Management](#assessment-management)
 - [Technologies Used](#technologies-used)
+- [Key Components](#key-components)
 - [Updates](#updates)
 
 ---
@@ -258,7 +258,71 @@ Submit as Form-Data with file content.
 - **Spring Web**
 - **Spring Data JPA**
 - **MySQL**
+- **Security: Spring Security for role-based access control**
+
+---
+
+## Key Components
+
+### 1. User Management
+
+- **User Types:** Admin, Instructor, Student.
+- **Admin:** Manages overall system settings, creates users, and manages courses.
+- **Instructor:** Creates courses, manages course content, adds assignments and quizzes, grades students, and removes students from courses.
+- **Student:** Enrolls in courses, accesses course materials, takes quizzes, hands in assignments, and views grades.
+
+**Features:**
+- User Registration and Login (role-based access).
+- Profile Management (view/update profile information).
+
+### 2. Course Management
+
+- **Course Creation:**
+  - Instructors can create courses with details like title, description, and duration.
+  - Instructors can upload media files (videos, PDFs, audio, etc.).
+  - Course consists of a number of lessons to be attended by students.
+
+- **Enrollment Management:**
+  - Students can view available courses and enroll.
+  - Admins and Instructors can view the list of enrolled students per course.
+
+- **Attendance Management:**
+  - Instructors can generate an OTP per lesson to maintain attendance.
+  - Students can select the lesson and enter the OTP received from the instructor.
+
+### 3. Assessment & Grading
+
+- **Assessment Types:** Quiz, Assignment.
+- **Quiz Creation:**
+  - Instructors can create quizzes with different question types (MCQ, true/false, short answers).
+  - Instructors can maintain a question bank per course.
+  - Randomized question selection for each quiz attempt.
+
+- **Assignment Submission:**
+  - Students can upload files for review by Instructors.
+
+- **Grading and Feedback:**
+  - Instructors can grade assignments.
+  - Students receive automated feedback after quizzes and manual feedback on assignments.
+
+### 4. Performance Tracking
+
+- **Student Progress Tracking:**
+  - Instructors can track quiz scores, assignment submissions, and attendance.
+
+### 5. Notifications
+
+- **System Notifications:**
+  - Notifications for enrollment confirmation, graded assignments, and course updates.
+  - Students can filter notifications as unread or view all.
+  - Instructors receive notifications about student enrollments.
 
 
+- **Role-Based Access Control:**
+  - Using Spring Security for authentication and authorization.
+  - Restricts access permissions based on user roles.
+
+- **Email Notifications:**
+  - Students receive email updates for enrollment confirmations, graded assignments, and course updates.
 
 ---
