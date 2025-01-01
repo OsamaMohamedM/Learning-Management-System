@@ -82,7 +82,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/signup").permitAll()
-                        .requestMatchers("/performanceTracking/**").hasRole("INSTRUCTOR")
+                        .requestMatchers("/performanceTracking/**").permitAll()
                         .requestMatchers("/createUser/**").hasRole("ADMIN")
                         .requestMatchers("/{course_id}/createAssessment").hasRole("INSTRUCTOR")
                         .requestMatchers("/{Course_id}/{assessment_id}/displayAssessment").permitAll()
@@ -102,8 +102,8 @@ public class SecurityConfiguration {
                         .requestMatchers("/course/delete/**").hasRole("INSTRUCTOR")
                         .requestMatchers("/course/addLesson").hasRole("INSTRUCTOR")
                         .requestMatchers("/drop/**").hasRole("INSTRUCTOR")
+                        .requestMatchers("/enroll/view/{courseId}").hasRole("INSTRUCTOR")
                         .requestMatchers("/enroll/**").hasRole("STUDENT")
-                        .requestMatchers("enroll/view/**").hasRole("INSTRUCTOR")
                         .requestMatchers("/attend").hasRole("STUDENT")
                         .requestMatchers("/attend/course/{courseId}/lesson/{lessonId}").hasRole("INSTRUCTOR")
                         .requestMatchers("/profile/{id}").permitAll()

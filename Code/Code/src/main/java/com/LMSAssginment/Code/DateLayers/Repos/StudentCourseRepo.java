@@ -18,6 +18,7 @@ public interface StudentCourseRepo extends JpaRepository<StudentCourse, Long> {
 
 
 
+
         // kick some a$$ with subqueries :D
         @Query(value = "SELECT u FROM User u WHERE u.id IN (SELECT sc.student.id FROM StudentCourse sc WHERE sc.course.id = :course_id)")
         List<User> findAllEnrolledUsers(@Param("course_id") Integer course_id);
